@@ -1,6 +1,12 @@
 {
   "name": "planbear",
+  "license": "MIT",
   "private": true,
+  "author": {
+    "name": "Ali Zahid",
+    "email": "ali.zahid@live.com",
+    "url": "https://designplox.com"
+  },
   "scripts": {
     "ios": "react-native run-ios --simulator 'iPhone Xs'",
     "lint": "eslint .",
