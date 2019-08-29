@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react'
 import {
   Image,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
-  StatusBar
+  View
 } from 'react-native'
 import { NavigationScreenProps, withNavigation } from 'react-navigation'
 

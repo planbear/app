@@ -4,7 +4,6 @@ import { BottomTabBarProps } from 'react-navigation'
 
 import { nav } from '../../assets'
 import { colors, layout, shadow } from '../../styles'
-
 import Touchable from './touchable'
 
 interface Props {

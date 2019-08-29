@@ -7,8 +7,8 @@ import { NavigationScreenComponent } from 'react-navigation'
 import { planbear } from '../assets'
 import { Button, NavBar, TextBox } from '../components/common'
 import { AuthResult, MutationLoginArgs } from '../graphql/types'
+import { nav, session } from '../lib'
 import { colors, fonts, layout } from '../styles'
-import { session, nav } from '../lib'
 
 export interface LoginData {
   login: AuthResult
