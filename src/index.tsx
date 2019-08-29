@@ -1,25 +1,91 @@
-import React, { FunctionComponent } from 'react'
-import { Image, SafeAreaView, StyleSheet } from 'react-native'
+import { ApolloProvider } from '@apollo/react-hooks'
+import React, { FunctionComponent, useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
+import {
+  createAppContainer,
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation'
 
-import { planbear } from './assets'
+import { KeyboardView, Spinner, TabBar } from './components/common'
+import { client } from './graphql'
+import { nav, session } from './lib'
+import {
+  Create,
+  Landing,
+  Login,
+  Plan,
+  Plans,
+  Profile,
+  Register
+} from './scenes'
 
 const PlanBear: FunctionComponent = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const auth = async () => {
+      await session.init()
+
+      setLoading(false)
+    }
+
+    auth()
+  })
+
+  if (loading) {
+    return <Spinner />
+  }
+
+  const LandingNavigator = createStackNavigator({
+    Landing,
+    Login,
+    Register
+  })
+
+  const AppNavigator = createBottomTabNavigator(
+    {
+      Plans: createStackNavigator({
+        Plans,
+        Plan
+      }),
+      Create: createStackNavigator({
+        Create
+      }),
+      Profile: createStackNavigator({
+        Profile
+      })
+    },
+    {
+      tabBarComponent: TabBar
+    }
+  )
+
+  const Navigator = createStackNavigator(
+    {
+      Landing: LandingNavigator,
+      App: AppNavigator
+    },
+    {
+      headerMode: 'none',
+      initialRouteName: session.token ? 'App' : 'Landing'
+    }
+  )
+
+  const Container = createAppContainer(Navigator)
+
   return (
-    <SafeAreaView style={styles.main}>
-      <Image style={styles.planbear} source={planbear} />
-    </SafeAreaView>
+    <KeyboardView style={styles.main}>
+      <ApolloProvider client={client()}>
+        <Container ref={navigator => nav.set(navigator)} />
+      </ApolloProvider>
+    </KeyboardView>
   )
 }
 
 const styles = StyleSheet.create({
   main: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
-  },
-  planbear: {
-    height: 180 / 2,
-    width: 200 / 2
+    flex: 1
   }
 })
 
