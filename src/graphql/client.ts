@@ -1,4 +1,7 @@
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { setContext } from 'apollo-link-context'
@@ -9,9 +12,14 @@ import { Alert } from 'react-native'
 import { API_URI } from 'react-native-dotenv'
 
 import { nav, session } from '../lib'
+import schema from './schema.json'
 
 export default () => {
-  const cache = new InMemoryCache()
+  const cache = new InMemoryCache({
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+      introspectionQueryResultData: schema
+    })
+  })
 
   const headers = () => {
     const headers: any = {}

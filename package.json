@@ -38,6 +38,7 @@
     "@babel/core": "^7.5.5",
     "@babel/runtime": "^7.5.5",
     "@graphql-codegen/cli": "^1.6.1",
+    "@graphql-codegen/fragment-matcher": "^1.7.0",
     "@graphql-codegen/typescript": "^1.6.1",
     "@react-native-community/eslint-config": "^0.0.5",
     "@types/lodash": "^4.14.138",

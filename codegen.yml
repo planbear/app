@@ -4,3 +4,6 @@ generates:
   src/graphql/types.ts:
     plugins:
       - typescript
+  src/graphql/schema.json:
+    plugins:
+      - fragment-matcher

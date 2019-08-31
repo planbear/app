@@ -40,6 +40,7 @@ export const layout = {
   avatarHeight: 100,
   backHeight: 20,
   buttonHeight: 50,
+  heroHeight: 30,
   iconHeight: 20,
   navBarHeight: 50,
   tabBarHeight: 50,

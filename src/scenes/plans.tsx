@@ -20,11 +20,11 @@ export const GET_PLANS = gql`
       id
       description
       expires
-      max
       meta {
         comments
         distance
         going
+        max
       }
       status
       time

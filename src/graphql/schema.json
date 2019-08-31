@@ -1,0 +1,18 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "UNION",
+        "name": "NotificationTarget",
+        "possibleTypes": [
+          {
+            "name": "Plan"
+          },
+          {
+            "name": "User"
+          }
+        ]
+      }
+    ]
+  }
+}

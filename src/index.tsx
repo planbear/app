@@ -14,6 +14,7 @@ import {
   Create,
   Landing,
   Login,
+  Notifications,
   Plan,
   Plans,
   Profile,
@@ -51,6 +52,9 @@ const PlanBear: FunctionComponent = () => {
       }),
       Create: createStackNavigator({
         Create
+      }),
+      Notifications: createStackNavigator({
+        Notifications
       }),
       Profile: createStackNavigator({
         Profile

@@ -1,3 +1,4 @@
+import { capitalize } from 'lodash'
 import moment from 'moment'
 import React, { FunctionComponent } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
@@ -18,12 +19,10 @@ const Plan: FunctionComponent<Props> = ({
   plan: {
     description,
     expires,
-    max,
-    meta: { comments, distance, going },
+    meta: { comments, distance, going, max },
     status,
     time,
-    type,
-    user: { name }
+    type
   },
   onPress
 }) => {
@@ -32,6 +31,21 @@ const Plan: FunctionComponent<Props> = ({
       <Image style={styles.hero} source={planType[type]} />
       <View style={styles.details}>
         <Text style={styles.description}>{description}</Text>
+        <View style={styles.meta}>
+          <View style={styles.item}>
+            <Text style={styles.time}>{moment(time).fromNow()}</Text>
+          </View>
+          {!!expires && (
+            <View style={styles.item}>
+              <Text style={styles.time}>
+                Expires {moment(expires).fromNow()}
+              </Text>
+            </View>
+          )}
+          <View style={styles.item}>
+            <Text style={styles.time}>{capitalize(status)}</Text>
+          </View>
+        </View>
         <View style={styles.meta}>
           <View style={styles.item}>
             <Image style={styles.icon} source={planMeta.going} />
@@ -49,18 +63,6 @@ const Plan: FunctionComponent<Props> = ({
             <Text style={styles.label}>{geo.distance(distance)}</Text>
           </View>
         </View>
-        <View style={styles.meta}>
-          <View style={styles.item}>
-            <Text style={styles.time}>{moment(time).fromNow()}</Text>
-          </View>
-          {!!expires && (
-            <View style={styles.item}>
-              <Text style={styles.time}>
-                Expires {moment(expires).fromNow()}
-              </Text>
-            </View>
-          )}
-        </View>
       </View>
     </Touchable>
   )
@@ -73,8 +75,8 @@ const styles = StyleSheet.create({
     padding: layout.margin
   },
   hero: {
-    height: layout.iconHeight * 2,
-    width: layout.iconHeight * 2
+    height: layout.heroHeight,
+    width: layout.heroHeight
   },
   details: {
     flex: 1,
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: -layout.margin,
-    marginTop: layout.margin
+    marginTop: layout.padding
   },
   item: {
     alignItems: 'center',

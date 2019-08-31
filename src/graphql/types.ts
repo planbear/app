@@ -42,11 +42,13 @@ export type Meta = {
   comments: Scalars['Int']
   distance: Scalars['Float']
   going: Scalars['Int']
+  max?: Maybe<Scalars['Int']>
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
   approveMember?: Maybe<Result>
+  blockMember?: Maybe<Result>
   createComment?: Maybe<Comment>
   createPlan?: Maybe<Plan>
   joinPlan?: Maybe<Plan>
@@ -58,6 +60,11 @@ export type Mutation = {
 }
 
 export type MutationApproveMemberArgs = {
+  planId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type MutationBlockMemberArgs = {
   planId: Scalars['ID']
   userId: Scalars['ID']
 }
@@ -100,8 +107,27 @@ export type MutationRemoveMemberArgs = {
 
 export type MutationUpdateProfileArgs = {
   name?: Maybe<Scalars['String']>
-  notifications?: Maybe<Scalars['Boolean']>
+  push?: Maybe<Scalars['Boolean']>
 }
+
+export type Notification = {
+  __typename?: 'Notification'
+  action: NotificationAction
+  id: Scalars['ID']
+  source: NotificationTarget
+  target: NotificationTarget
+  user: User
+  created: Scalars['String']
+  updated: Scalars['String']
+}
+
+export enum NotificationAction {
+  NewRequest = 'new_request',
+  NewComment = 'new_comment',
+  RequestApproved = 'request_approved'
+}
+
+export type NotificationTarget = Plan | User
 
 export type Plan = {
   __typename?: 'Plan'
@@ -109,7 +135,6 @@ export type Plan = {
   comments?: Maybe<Array<Comment>>
   description: Scalars['String']
   expires?: Maybe<Scalars['String']>
-  max?: Maybe<Scalars['Int']>
   members?: Maybe<Array<Member>>
   meta: Meta
   status: Scalars['String']
@@ -140,6 +165,7 @@ export enum PlanType {
 
 export type Query = {
   __typename?: 'Query'
+  notifications?: Maybe<Array<Maybe<Notification>>>
   plan?: Maybe<Plan>
   plans?: Maybe<Array<Maybe<Plan>>>
   profile?: Maybe<User>
@@ -165,7 +191,7 @@ export type User = {
   id: Scalars['ID']
   email: Scalars['String']
   name: Scalars['String']
-  notifications: Scalars['Boolean']
+  push: Scalars['Boolean']
   created: Scalars['String']
   updated: Scalars['String']
 }
