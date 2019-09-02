@@ -1,3 +1,4 @@
+import { TextStyle } from 'react-native'
 import { iOSColors, iOSUIKit } from 'react-native-typography'
 
 export const colors = {
@@ -30,6 +31,18 @@ export const fonts = {
   }
 }
 
+export const weights = {
+  regular: {
+    fontWeight: 'normal'
+  } as TextStyle,
+  semibold: {
+    fontWeight: '500'
+  } as TextStyle,
+  bold: {
+    fontWeight: 'bold'
+  } as TextStyle
+}
+
 export const layout = {
   margin: 20,
   padding: 10,
@@ -37,7 +50,7 @@ export const layout = {
   radius: 5,
   border: 2,
 
-  avatarHeight: 100,
+  avatarHeight: 40,
   backHeight: 20,
   buttonHeight: 50,
   heroHeight: 30,

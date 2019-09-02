@@ -137,7 +137,7 @@ export type Plan = {
   expires?: Maybe<Scalars['String']>
   members?: Maybe<Array<Member>>
   meta: Meta
-  status: Scalars['String']
+  status: PlanStatus
   time: Scalars['String']
   type: PlanType
   user: User
@@ -152,6 +152,12 @@ export type PlanInput = {
   max?: Maybe<Scalars['Int']>
   time: Scalars['String']
   type: PlanType
+}
+
+export enum PlanStatus {
+  Joined = 'joined',
+  New = 'new',
+  Requested = 'requested'
 }
 
 export enum PlanType {

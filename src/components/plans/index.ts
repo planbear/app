@@ -1,1 +1,6 @@
+export { default as Comment } from './comment'
+export { default as Comments } from './comments'
+export { default as Member } from './member'
+export { default as Members } from './members'
 export { default as Plan } from './plan'
+export { default as TabBar } from './tab-bar'

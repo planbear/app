@@ -1,11 +1,12 @@
 import { ApolloProvider } from '@apollo/react-hooks'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
+import { createAppContainer } from 'react-navigation'
 import {
-  createAppContainer,
-  createBottomTabNavigator,
+  StackNavigatorConfig,
   createStackNavigator
-} from 'react-navigation'
+} from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 import { KeyboardView, Spinner, TabBar } from './components/common'
 import { client } from './graphql'
@@ -20,6 +21,7 @@ import {
   Profile,
   Register
 } from './scenes'
+import { colors } from './styles'
 
 const PlanBear: FunctionComponent = () => {
   const [loading, setLoading] = useState(true)
@@ -44,21 +46,39 @@ const PlanBear: FunctionComponent = () => {
     Register
   })
 
+  const options: StackNavigatorConfig = {
+    cardStyle: {
+      backgroundColor: colors.primary
+    }
+  }
+
   const AppNavigator = createBottomTabNavigator(
     {
-      Plans: createStackNavigator({
-        Plans,
-        Plan
-      }),
-      Create: createStackNavigator({
-        Create
-      }),
-      Notifications: createStackNavigator({
-        Notifications
-      }),
-      Profile: createStackNavigator({
-        Profile
-      })
+      Plans: createStackNavigator(
+        {
+          Plans,
+          Plan
+        },
+        options
+      ),
+      Create: createStackNavigator(
+        {
+          Create
+        },
+        options
+      ),
+      Notifications: createStackNavigator(
+        {
+          Notifications
+        },
+        options
+      ),
+      Profile: createStackNavigator(
+        {
+          Profile
+        },
+        options
+      )
     },
     {
       tabBarComponent: TabBar

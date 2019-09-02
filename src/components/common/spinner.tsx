@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { colors } from '../../styles'
+import { colors, layout } from '../../styles'
 
 const Spinner: FunctionComponent = () => {
   return (
@@ -14,6 +14,9 @@ const Spinner: FunctionComponent = () => {
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
+    backgroundColor: colors.background,
+    borderTopLeftRadius: layout.radius * 2,
+    borderTopRightRadius: layout.radius * 2,
     flex: 1,
     justifyContent: 'center'
   }

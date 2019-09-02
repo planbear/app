@@ -1,3 +1,4 @@
+export { default as Avatar } from './avatar'
 export { default as Button } from './button'
 export { default as KeyboardView } from './keyboard-view'
 export { default as NavBar } from './nav-bar'

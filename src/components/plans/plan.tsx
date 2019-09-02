@@ -5,14 +5,11 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 
 import { planMeta, planType } from '../../assets'
 import { Plan as IPlan } from '../../graphql/types'
-import { geo } from '../../lib'
+import { geo, session } from '../../lib'
 import { colors, fonts, layout } from '../../styles'
-import { Touchable } from '../common'
 
 interface Props {
   plan: IPlan
-
-  onPress: any
 }
 
 const Plan: FunctionComponent<Props> = ({
@@ -22,12 +19,12 @@ const Plan: FunctionComponent<Props> = ({
     meta: { comments, distance, going, max },
     status,
     time,
-    type
-  },
-  onPress
+    type,
+    user: { id }
+  }
 }) => {
   return (
-    <Touchable style={styles.main} onPress={onPress}>
+    <View style={styles.main}>
       <Image style={styles.hero} source={planType[type]} />
       <View style={styles.details}>
         <Text style={styles.description}>{description}</Text>
@@ -43,7 +40,9 @@ const Plan: FunctionComponent<Props> = ({
             </View>
           )}
           <View style={styles.item}>
-            <Text style={styles.time}>{capitalize(status)}</Text>
+            <Text style={styles.time}>
+              {id === session.userId ? 'Your plan' : capitalize(status)}
+            </Text>
           </View>
         </View>
         <View style={styles.meta}>
@@ -64,7 +63,7 @@ const Plan: FunctionComponent<Props> = ({
           </View>
         </View>
       </View>
-    </Touchable>
+    </View>
   )
 }
 
@@ -88,13 +87,13 @@ const styles = StyleSheet.create({
   meta: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: -layout.margin,
+    marginLeft: -layout.padding,
     marginTop: layout.padding
   },
   item: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: layout.margin
+    marginLeft: layout.padding
   },
   icon: {
     height: layout.iconHeight,
