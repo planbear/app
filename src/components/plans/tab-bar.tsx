@@ -28,7 +28,7 @@ const TabBar: FunctionComponent<Props> = ({
         <Touchable
           key={current}
           style={styles.button}
-          onPress={() => onIndexChange(current)}>
+          onPress={() => index !== current && onIndexChange(current)}>
           <Text style={[styles.label, index === current && styles.current]}>
             {key}
             {['Comments', 'People'].includes(key) &&
