@@ -34,6 +34,7 @@ export type Member = {
   approved: Scalars['Boolean']
   joined: Scalars['String']
   name: Scalars['String']
+  rating: Scalars['Float']
   owner: Scalars['Boolean']
 }
 
@@ -53,6 +54,7 @@ export type Mutation = {
   createPlan?: Maybe<Plan>
   joinPlan?: Maybe<Plan>
   login?: Maybe<AuthResult>
+  rateUser?: Maybe<Result>
   register?: Maybe<AuthResult>
   removeComment?: Maybe<Result>
   removeMember?: Maybe<Result>
@@ -87,6 +89,12 @@ export type MutationJoinPlanArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String']
   password: Scalars['String']
+}
+
+export type MutationRateUserArgs = {
+  planId: Scalars['ID']
+  userId: Scalars['ID']
+  rating: Scalars['Int']
 }
 
 export type MutationRegisterArgs = {
@@ -198,6 +206,7 @@ export type User = {
   email: Scalars['String']
   name: Scalars['String']
   push: Scalars['Boolean']
+  rating: Scalars['Float']
   created: Scalars['String']
   updated: Scalars['String']
 }
