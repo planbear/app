@@ -2,10 +2,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation'
-import {
-  StackNavigatorConfig,
-  createStackNavigator
-} from 'react-navigation-stack'
+import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 import { KeyboardView, Spinner, TabBar } from './components/common'
@@ -46,39 +43,21 @@ const PlanBear: FunctionComponent = () => {
     Register
   })
 
-  const options: StackNavigatorConfig = {
-    cardStyle: {
-      backgroundColor: colors.primary
-    }
-  }
-
   const AppNavigator = createBottomTabNavigator(
     {
-      Plans: createStackNavigator(
-        {
-          Plans,
-          Plan
-        },
-        options
-      ),
-      Create: createStackNavigator(
-        {
-          Create
-        },
-        options
-      ),
-      Notifications: createStackNavigator(
-        {
-          Notifications
-        },
-        options
-      ),
-      Profile: createStackNavigator(
-        {
-          Profile
-        },
-        options
-      )
+      Plans: createStackNavigator({
+        Plans,
+        Plan
+      }),
+      Create: createStackNavigator({
+        Create
+      }),
+      Notifications: createStackNavigator({
+        Notifications
+      }),
+      Profile: createStackNavigator({
+        Profile
+      })
     },
     {
       tabBarComponent: TabBar

@@ -1,4 +1,5 @@
 import img_back from './img_back.png'
+import img_send from './img_send.png'
 import notification_new_comment from './notification_new_comment.png'
 import notification_new_request from './notification_new_request.png'
 import notification_request_approved from './notification_request_approved.png'
@@ -45,4 +46,4 @@ export const notificationAction: any = {
   request_approved: notification_request_approved
 }
 
-export { img_back, planbear }
+export { img_back, img_send, planbear }

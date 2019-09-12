@@ -3,7 +3,8 @@ import React, { FunctionComponent } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { Member as IMember } from '../../graphql/types'
-import { colors, fonts, layout } from '../../styles'
+import { session } from '../../lib'
+import { colors, fonts, layout, weights } from '../../styles'
 import { Avatar } from '../common'
 
 interface Props {
@@ -24,6 +25,7 @@ const Member: FunctionComponent<Props> = ({
           </Text>
         </View>
       </View>
+      {id === session.userId && <Text style={styles.you}>YOU</Text>}
     </View>
   )
 }
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
   },
   details: {
     flex: 1,
-    marginLeft: layout.margin
+    marginHorizontal: layout.margin
   },
   name: {
     ...fonts.regular
@@ -53,6 +55,14 @@ const styles = StyleSheet.create({
   joined: {
     ...fonts.small,
     color: colors.textLight
+  },
+  you: {
+    ...fonts.small,
+    ...weights.semibold,
+    backgroundColor: colors.primary,
+    borderRadius: layout.radius,
+    color: colors.background,
+    padding: layout.padding / 2
   }
 })
 

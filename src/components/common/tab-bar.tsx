@@ -65,8 +65,6 @@ const TabBar: FunctionComponent<BottomTabBarProps & Props> = ({
 const styles = StyleSheet.create({
   main: {
     backgroundColor: colors.primary,
-    borderTopLeftRadius: layout.radius * 2,
-    borderTopRightRadius: layout.radius * 2,
     flexDirection: 'row'
   },
   tab: {

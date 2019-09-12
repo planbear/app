@@ -33,8 +33,6 @@ export default () => {
 
   const link = ApolloLink.from([
     onError(({ graphQLErrors }) => {
-      console.log('graphQLErrors', graphQLErrors)
-
       if (graphQLErrors) {
         const code = get(graphQLErrors, '0.extensions.code')
 

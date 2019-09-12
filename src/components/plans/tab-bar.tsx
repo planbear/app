@@ -27,7 +27,6 @@ const TabBar: FunctionComponent<Props> = ({
       {routes.map(({ key }, current) => (
         <Touchable
           key={current}
-          style={styles.button}
           onPress={() => index !== current && onIndexChange(current)}>
           <Text style={[styles.label, index === current && styles.current]}>
             {key}
@@ -43,15 +42,10 @@ const TabBar: FunctionComponent<Props> = ({
 const styles = StyleSheet.create({
   main: {
     backgroundColor: colors.backgroundDark,
-    borderTopLeftRadius: layout.radius * 2,
-    borderTopRightRadius: layout.radius * 2,
     flexDirection: 'row'
   },
-  button: {
-    flex: 1
-  },
   label: {
-    ...fonts.regular,
+    ...fonts.small,
     color: colors.textLight,
     margin: layout.margin
   },

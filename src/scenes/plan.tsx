@@ -17,7 +17,7 @@ interface Props {
   title?: string
 }
 
-export interface GetPlansData {
+export interface GetPlanData {
   plan: IPlan
 }
 
@@ -82,31 +82,31 @@ const Plan: NavigationScreenComponent<Props> = ({
 
   const [state, setState] = useState(initialState)
 
-  const [getPlans, { data }] = useLazyQuery<GetPlansData, QueryPlanArgs>(
-    GET_PLAN,
-    {
-      onCompleted(data) {
-        if (!getParam('title')) {
-          const {
-            plan: {
-              type,
-              user: { name }
-            }
-          } = data
+  const [getPlan, { data, loading, refetch }] = useLazyQuery<
+    GetPlanData,
+    QueryPlanArgs
+  >(GET_PLAN, {
+    onCompleted(data) {
+      if (!getParam('title')) {
+        const {
+          plan: {
+            type,
+            user: { name }
+          }
+        } = data
 
-          setParams({
-            title: `${name}'s ${type} plan`
-          })
-        }
+        setParams({
+          title: `${name}'s ${type} plan`
+        })
       }
     }
-  )
+  })
 
   useEffect(() => {
     const fetch = async () => {
       const location = await geo.location()
 
-      getPlans({
+      getPlan({
         variables: {
           planId,
           location
@@ -156,9 +156,19 @@ const Plan: NavigationScreenComponent<Props> = ({
           onIndexChange={onIndexChange}
           renderScene={SceneMap({
             Comments: () => (
-              <Comments comments={get(data, 'plan.comments', [])} />
+              <Comments
+                plan={data.plan}
+                refetch={refetch}
+                refreshing={loading}
+              />
             ),
-            People: () => <Members members={get(data, 'plan.members', [])} />
+            People: () => (
+              <Members
+                plan={data.plan}
+                refetch={refetch}
+                refreshing={loading}
+              />
+            )
           })}
           renderTabBar={() => (
             <TabBar
@@ -181,9 +191,6 @@ Plan.navigationOptions = ({ navigation: { getParam } }) => ({
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: colors.background,
-    borderTopLeftRadius: layout.radius * 2,
-    borderTopRightRadius: layout.radius * 2,
     flex: 1
   },
   action: {

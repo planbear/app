@@ -1,25 +1,44 @@
 import { orderBy } from 'lodash'
 import React, { FunctionComponent } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 
-import { Comment as IComment } from '../../graphql/types'
-import { Separator } from '../common'
+import { Plan } from '../../graphql/types'
+import { Empty, Separator } from '../common'
 import Comment from './comment'
+import Reply from './reply'
 
 interface Props {
-  comments: IComment[]
+  plan: Plan
+  refreshing: boolean
+
+  refetch: any
 }
 
-const Comments: FunctionComponent<Props> = ({ comments }) => {
+const Comments: FunctionComponent<Props> = ({ plan, refreshing, refetch }) => {
+  const { comments } = plan
+
   return (
-    <FlatList
-      data={orderBy(comments, 'created', 'desc')}
-      inverted
-      ItemSeparatorComponent={Separator}
-      keyExtractor={({ id }) => id}
-      renderItem={({ item }) => <Comment comment={item} />}
-    />
+    <>
+      <FlatList
+        contentContainerStyle={styles.content}
+        data={orderBy(comments, 'created', 'desc')}
+        inverted
+        ItemSeparatorComponent={Separator}
+        keyExtractor={({ id }) => id}
+        ListEmptyComponent={<Empty message="No comments yet" flipped />}
+        onRefresh={refetch}
+        refreshing={refreshing}
+        renderItem={({ item }) => <Comment comment={item} />}
+      />
+      <Reply plan={plan} />
+    </>
   )
 }
+
+const styles = StyleSheet.create({
+  content: {
+    flexGrow: 1
+  }
+})
 
 export default Comments

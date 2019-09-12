@@ -14,6 +14,7 @@ interface Props {
   returnKeyType?: any
   secureTextEntry?: boolean
   style?: any
+  styleInput?: any
   value?: string
 
   onChangeText: (value: string) => void
@@ -33,6 +34,7 @@ const TextBox: FunctionComponent<Props> = ({
   returnKeyType,
   secureTextEntry,
   style,
+  styleInput,
   value
 }) => {
   const { height } = Dimensions.get('window')
@@ -48,7 +50,8 @@ const TextBox: FunctionComponent<Props> = ({
           styles.input,
           multiline && {
             height: potentialHeight > maxHeight ? maxHeight : potentialHeight
-          }
+          },
+          styleInput
         ]}
         autoCapitalize={autoCapitalize}
         autoCorrect={autoCorrect}

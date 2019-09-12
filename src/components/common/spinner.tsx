@@ -14,9 +14,6 @@ const Spinner: FunctionComponent = () => {
 const styles = StyleSheet.create({
   main: {
     alignItems: 'center',
-    backgroundColor: colors.background,
-    borderTopLeftRadius: layout.radius * 2,
-    borderTopRightRadius: layout.radius * 2,
     flex: 1,
     justifyContent: 'center'
   }

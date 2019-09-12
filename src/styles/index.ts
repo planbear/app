@@ -48,7 +48,7 @@ export const layout = {
   padding: 10,
 
   radius: 5,
-  border: 2,
+  border: 1,
 
   avatarHeight: 40,
   backHeight: 20,
