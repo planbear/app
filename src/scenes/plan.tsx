@@ -96,7 +96,7 @@ const Plan: NavigationScreenComponent<Props> = ({
         } = data
 
         setParams({
-          title: `${name}'s ${type} plan`
+          title: `${name}'s ${type.replace(/_/g, '')} plan`
         })
       }
     }
