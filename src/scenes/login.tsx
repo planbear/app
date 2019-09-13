@@ -14,7 +14,7 @@ export interface LoginData {
 }
 
 export const LOGIN = gql`
-  mutation signIn($email: String!, $password: String!) {
+  mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
@@ -33,9 +33,7 @@ const Login: NavigationStackScreenComponent = () => {
   const [login, { loading }] = useMutation<LoginData, MutationLoginArgs>(
     LOGIN,
     {
-      async update(proxy, result) {
-        const { data } = result
-
+      async update(proxy, { data }) {
         if (data) {
           const { login } = data
 
