@@ -44,10 +44,11 @@ const Profile: NavigationStackScreenComponent = () => {
   } = data
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="dark-content" />
-      <ScrollView contentContainerStyle={styles.main}>
+    <>
+      <SafeAreaView style={styles.safe}>
         <Avatar style={styles.avatar} id={id} />
+      </SafeAreaView>
+      <ScrollView contentContainerStyle={styles.main}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.email}>{email}</Text>
         <View style={styles.rating}>
@@ -67,7 +68,7 @@ const Profile: NavigationStackScreenComponent = () => {
           style={styles.logout}
         />
       </ScrollView>
-    </SafeAreaView>
+    </>
   )
 }
 
@@ -77,7 +78,14 @@ Profile.navigationOptions = {
 
 const styles = StyleSheet.create({
   safe: {
-    flex: 1
+    alignItems: 'center',
+    backgroundColor: colors.primary
+  },
+  avatar: {
+    borderRadius: layout.avatarHeight * 1.5,
+    height: layout.avatarHeight * 3,
+    marginVertical: layout.margin * 2,
+    width: layout.avatarHeight * 3
   },
   main: {
     alignItems: 'center',
@@ -85,17 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: layout.margin
   },
-  avatar: {
-    borderRadius: layout.avatarHeight,
-    height: layout.avatarHeight * 2,
-    width: layout.avatarHeight * 2
-  },
   name: {
     ...fonts.subtitle,
     marginTop: layout.margin
   },
   email: {
-    ...fonts.regular,
+    ...fonts.small,
     color: colors.textLight,
     marginTop: layout.padding
   },
