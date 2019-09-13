@@ -3,14 +3,7 @@ import gql from 'graphql-tag'
 import { startCase } from 'lodash'
 import pluralize from 'pluralize'
 import React, { useEffect, useState } from 'react'
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { img_minus, img_plus } from '../assets'
@@ -111,7 +104,7 @@ const Create: NavigationStackScreenComponent = ({
   }))
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <>
       <ScrollView contentContainerStyle={styles.main}>
         <Text style={styles.label}>What kind of plan is this?</Text>
         <Picker
@@ -204,7 +197,7 @@ const Create: NavigationStackScreenComponent = ({
           />
         </View>
       )}
-    </SafeAreaView>
+    </>
   )
 }
 
@@ -213,9 +206,6 @@ Create.navigationOptions = {
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1
-  },
   main: {
     padding: layout.margin
   },
