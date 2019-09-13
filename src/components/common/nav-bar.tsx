@@ -10,7 +10,7 @@ import {
 import { NavigationScreenProps, withNavigation } from 'react-navigation'
 
 import { img_back } from '../../assets'
-import { colors, fonts, layout } from '../../styles'
+import { colors, fonts, layout, shadow } from '../../styles'
 import Touchable from './touchable'
 
 interface Props {
@@ -42,6 +42,7 @@ const NavBar: FunctionComponent<Props & NavigationScreenProps> = ({
 
 const styles = StyleSheet.create({
   safe: {
+    ...shadow,
     backgroundColor: colors.primary
   },
   main: {

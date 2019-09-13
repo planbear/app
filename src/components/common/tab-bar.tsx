@@ -3,7 +3,7 @@ import { Image, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
 import { BottomTabBarProps } from 'react-navigation-tabs'
 
 import { nav } from '../../assets'
-import { colors, layout } from '../../styles'
+import { colors, layout, shadow } from '../../styles'
 import Touchable from './touchable'
 
 interface Props {
@@ -64,6 +64,7 @@ const TabBar: FunctionComponent<BottomTabBarProps & Props> = ({
 
 const styles = StyleSheet.create({
   main: {
+    ...shadow,
     backgroundColor: colors.primary,
     flexDirection: 'row'
   },

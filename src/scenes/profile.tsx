@@ -5,7 +5,6 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   View
@@ -16,7 +15,7 @@ import { img_rating } from '../assets'
 import { Avatar, Button, Spinner } from '../components/common'
 import { User } from '../graphql/types'
 import { nav, session } from '../lib'
-import { colors, fonts, layout } from '../styles'
+import { colors, fonts, layout, shadow } from '../styles'
 import { client } from '..'
 
 export const GET_PROFILE = gql`
@@ -55,19 +54,19 @@ const Profile: NavigationStackScreenComponent = () => {
           <Image style={styles.icon} source={img_rating} />
           <Text style={styles.ratingLabel}>{rating}</Text>
         </View>
-        <Button
-          color="red"
-          ghost
-          label="Logout"
-          onPress={async () => {
-            await client.resetStore()
-            await session.clear()
-
-            nav.reset('Landing')
-          }}
-          style={styles.logout}
-        />
       </ScrollView>
+      <Button
+        style={styles.logout}
+        color="red"
+        ghost
+        label="Logout"
+        onPress={async () => {
+          await client.resetStore()
+          await session.clear()
+
+          nav.reset('Landing')
+        }}
+      />
     </>
   )
 }
@@ -78,6 +77,7 @@ Profile.navigationOptions = {
 
 const styles = StyleSheet.create({
   safe: {
+    ...shadow,
     alignItems: 'center',
     backgroundColor: colors.primary
   },
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   logout: {
     borderWidth: 0,
-    marginTop: layout.margin * 3
+    margin: layout.margin
   }
 })
 
