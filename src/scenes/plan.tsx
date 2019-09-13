@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { get } from 'lodash'
 import React, { useEffect, useState } from 'react'
@@ -7,18 +7,20 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { Button, NavBar, Spinner } from '../components/common'
-import { Comments, Members, Plan as VPlan, TabBar } from '../components/plans'
-import { Plan as IPlan, PlanStatus, QueryPlanArgs } from '../graphql/types'
+import { Comments, Members, TabBar, Plan as VPlan } from '../components/plans'
+import {
+  Plan as IPlan,
+  LocationInput,
+  MutationJoinPlanArgs,
+  PlanStatus,
+  QueryPlanArgs
+} from '../graphql/types'
 import { geo } from '../lib'
 import { colors, fonts, layout } from '../styles'
 
 interface Props {
   planId: string
   title?: string
-}
-
-export interface GetPlanData {
-  plan: IPlan
 }
 
 export const GET_PLAN = gql`
@@ -63,6 +65,14 @@ export const GET_PLAN = gql`
   }
 `
 
+export const JOIN_PLAN = gql`
+  mutation joinPlan($planId: ID!, $location: LocationInput!) {
+    joinPlan(planId: $planId, location: $location) {
+      id
+    }
+  }
+`
+
 const initialState = {
   index: 0,
   routes: [
@@ -81,9 +91,12 @@ const Plan: NavigationStackScreenComponent<Props> = ({
   const planId = getParam('planId')
 
   const [state, setState] = useState(initialState)
+  const [location, setLocation] = useState<LocationInput>()
 
   const [getPlan, { data, loading, refetch }] = useLazyQuery<
-    GetPlanData,
+    {
+      plan: IPlan
+    },
     QueryPlanArgs
   >(GET_PLAN, {
     onCompleted(data) {
@@ -96,22 +109,31 @@ const Plan: NavigationStackScreenComponent<Props> = ({
         } = data
 
         setParams({
-          title: `${name}'s ${type.replace(/_/g, '')} plan`
+          title: `${name}'s ${type.replace(/_/g, ' ')} plan`
         })
       }
     }
   })
 
+  const [joinPlan, { loading: loadingJoinPlan }] = useMutation<
+    {
+      joinPlan: IPlan
+    },
+    MutationJoinPlanArgs
+  >(JOIN_PLAN)
+
   useEffect(() => {
     const fetch = async () => {
-      const location = await geo.location()
+      setLocation(await geo.location())
 
-      getPlan({
-        variables: {
-          planId,
-          location
-        }
-      })
+      if (location) {
+        getPlan({
+          variables: {
+            location,
+            planId
+          }
+        })
+      }
     }
 
     fetch()
@@ -139,7 +161,21 @@ const Plan: NavigationStackScreenComponent<Props> = ({
       {status === PlanStatus.New && (
         <View style={styles.action}>
           <Text style={styles.message}>Would you like to join this plan?</Text>
-          <Button style={styles.button} label="Request to join" />
+          <Button
+            style={styles.button}
+            label="Request to join"
+            loading={loadingJoinPlan}
+            onPress={() => {
+              if (location) {
+                joinPlan({
+                  variables: {
+                    location,
+                    planId
+                  }
+                })
+              }
+            }}
+          />
         </View>
       )}
       {status === PlanStatus.Requested && (
