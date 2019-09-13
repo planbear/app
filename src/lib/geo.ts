@@ -3,8 +3,8 @@ import Geolocation from 'react-native-geolocation-service'
 import { LocationInput } from '../graphql/types'
 
 class Geo {
-  async location(): Promise<LocationInput> {
-    await Geolocation.requestAuthorization()
+  location(): Promise<LocationInput> {
+    Geolocation.requestAuthorization()
 
     return new Promise((resolve, reject) =>
       Geolocation.getCurrentPosition(
