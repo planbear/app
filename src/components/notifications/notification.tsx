@@ -13,12 +13,12 @@ import { Touchable } from '../common'
 interface Props {
   notification: INotification
 
-  onPress: any
+  navigate: any
 }
 
 const Notification: FunctionComponent<Props> = ({
   notification: { action, source, target, updated },
-  onPress
+  navigate
 }) => {
   const description = () => {
     if (
@@ -43,7 +43,15 @@ const Notification: FunctionComponent<Props> = ({
   }
 
   return (
-    <Touchable style={styles.main} onPress={onPress}>
+    <Touchable
+      style={styles.main}
+      onPress={() => {
+        if (target.__typename === 'Plan') {
+          navigate('Plan', {
+            planId: target.id
+          })
+        }
+      }}>
       <Image style={styles.hero} source={notificationAction[action]} />
       <View style={styles.details}>
         <Text style={styles.description}>{description()}</Text>

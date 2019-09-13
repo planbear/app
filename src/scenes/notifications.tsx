@@ -19,6 +19,16 @@ export const GET_NOTIFICATIONS = gql`
       id
       created
       action
+      source {
+        ... on Plan {
+          id
+          type
+        }
+        ... on User {
+          id
+          name
+        }
+      }
       target {
         ... on Plan {
           id
@@ -34,7 +44,9 @@ export const GET_NOTIFICATIONS = gql`
   }
 `
 
-const Notifications: NavigationStackScreenComponent = () => {
+const Notifications: NavigationStackScreenComponent = ({
+  navigation: { navigate }
+}) => {
   const { data, loading, refetch } = useQuery<GetNotificationsData>(
     GET_NOTIFICATIONS
   )
@@ -50,7 +62,7 @@ const Notifications: NavigationStackScreenComponent = () => {
       onRefresh={refetch}
       refreshing={loading}
       renderItem={({ item }) => (
-        <Notification notification={item} onPress={() => {}} />
+        <Notification notification={item} navigate={navigate} />
       )}
     />
   )
