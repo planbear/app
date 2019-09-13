@@ -1,14 +1,13 @@
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import React, { useState } from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { NavigationScreenComponent } from 'react-navigation'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
-import { planbear } from '../assets'
 import { Button, NavBar, TextBox } from '../components/common'
 import { AuthResult, MutationLoginArgs } from '../graphql/types'
 import { nav, session } from '../lib'
-import { colors, fonts, layout } from '../styles'
+import { layout } from '../styles'
 
 export interface LoginData {
   login: AuthResult
@@ -27,14 +26,14 @@ export const LOGIN = gql`
   }
 `
 
-const Login: NavigationScreenComponent = ({ navigation: { navigate } }) => {
+const Login: NavigationStackScreenComponent = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [login, { loading }] = useMutation<LoginData, MutationLoginArgs>(
     LOGIN,
     {
-      async update(cache, result) {
+      async update(proxy, result) {
         const { data } = result
 
         if (data) {
@@ -81,7 +80,7 @@ const Login: NavigationScreenComponent = ({ navigation: { navigate } }) => {
 }
 
 Login.navigationOptions = {
-  header: <NavBar back title="Login" />
+  header: () => <NavBar back title="Login" />
 }
 
 const styles = StyleSheet.create({

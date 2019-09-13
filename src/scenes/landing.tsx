@@ -7,13 +7,15 @@ import {
   Text,
   View
 } from 'react-native'
-import { NavigationScreenComponent } from 'react-navigation'
+import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { planbear } from '../assets'
 import { Button } from '../components/common'
 import { colors, fonts, layout } from '../styles'
 
-const Landing: NavigationScreenComponent = ({ navigation: { navigate } }) => {
+const Landing: NavigationStackScreenComponent = ({
+  navigation: { navigate }
+}) => {
   return (
     <SafeAreaView style={styles.main}>
       <StatusBar barStyle="dark-content" />

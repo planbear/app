@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Image, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
-import { BottomTabBarProps } from 'react-navigation'
+import { BottomTabBarProps } from 'react-navigation-tabs'
 
 import { nav } from '../../assets'
-import { colors, layout, shadow } from '../../styles'
+import { colors, layout } from '../../styles'
 import Touchable from './touchable'
 
 interface Props {

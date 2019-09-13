@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { colors, layout } from '../../styles'
+import { colors } from '../../styles'
 
 const Spinner: FunctionComponent = () => {
   return (

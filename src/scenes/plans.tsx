@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import { orderBy } from 'lodash'
 import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
-import { NavigationScreenComponent } from 'react-navigation'
+import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { NavBar, Separator, Spinner, Touchable } from '../components/common'
 import { Plan } from '../components/plans'
@@ -39,7 +39,9 @@ export const GET_PLANS = gql`
   }
 `
 
-const Plans: NavigationScreenComponent = ({ navigation: { navigate } }) => {
+const Plans: NavigationStackScreenComponent = ({
+  navigation: { navigate }
+}) => {
   const [getPlans, { data, loading, refetch }] = useLazyQuery<
     GetPlansData,
     QueryPlansArgs
@@ -58,7 +60,7 @@ const Plans: NavigationScreenComponent = ({ navigation: { navigate } }) => {
     }
 
     fetch()
-  }, [])
+  }, [getPlans])
 
   if (!data || !data.plans) {
     return <Spinner />
@@ -85,7 +87,7 @@ const Plans: NavigationScreenComponent = ({ navigation: { navigate } }) => {
 }
 
 Plans.navigationOptions = {
-  header: <NavBar title="Plans within 20km" />
+  header: () => <NavBar title="Plans within 20km" />
 }
 
 export default Plans

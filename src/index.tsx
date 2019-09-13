@@ -18,7 +18,6 @@ import {
   Profile,
   Register
 } from './scenes'
-import { colors } from './styles'
 
 const PlanBear: FunctionComponent = () => {
   const [loading, setLoading] = useState(true)

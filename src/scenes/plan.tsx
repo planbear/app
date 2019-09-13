@@ -4,10 +4,10 @@ import { get } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
-import { NavigationScreenComponent } from 'react-navigation'
+import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { Button, NavBar, Spinner } from '../components/common'
-import { Comments, Members, TabBar, Plan as VPlan } from '../components/plans'
+import { Comments, Members, Plan as VPlan, TabBar } from '../components/plans'
 import { Plan as IPlan, PlanStatus, QueryPlanArgs } from '../graphql/types'
 import { geo } from '../lib'
 import { colors, fonts, layout } from '../styles'
@@ -75,7 +75,7 @@ const initialState = {
   ]
 }
 
-const Plan: NavigationScreenComponent<Props> = ({
+const Plan: NavigationStackScreenComponent<Props> = ({
   navigation: { getParam, setParams }
 }) => {
   const planId = getParam('planId')
@@ -115,7 +115,7 @@ const Plan: NavigationScreenComponent<Props> = ({
     }
 
     fetch()
-  }, [])
+  }, [getPlan, planId])
 
   if (!data || !data.plan) {
     return <Spinner />
@@ -186,7 +186,7 @@ const Plan: NavigationScreenComponent<Props> = ({
 }
 
 Plan.navigationOptions = ({ navigation: { getParam } }) => ({
-  header: <NavBar back title={getParam('title', 'Plan')} />
+  header: () => <NavBar back title={getParam('title', 'Plan')} />
 })
 
 const styles = StyleSheet.create({

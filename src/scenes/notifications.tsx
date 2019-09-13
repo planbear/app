@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import { orderBy } from 'lodash'
 import React from 'react'
 import { FlatList } from 'react-native'
-import { NavigationScreenComponent } from 'react-navigation'
+import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { NavBar, Separator, Spinner } from '../components/common'
 import { Notification } from '../components/notifications'
@@ -34,9 +34,7 @@ export const GET_NOTIFICATIONS = gql`
   }
 `
 
-const Notifications: NavigationScreenComponent = ({
-  navigation: { navigate }
-}) => {
+const Notifications: NavigationStackScreenComponent = () => {
   const { data, loading, refetch } = useQuery<GetNotificationsData>(
     GET_NOTIFICATIONS
   )
@@ -59,7 +57,7 @@ const Notifications: NavigationScreenComponent = ({
 }
 
 Notifications.navigationOptions = {
-  header: <NavBar title="Notifications" />
+  header: () => <NavBar title="Notifications" />
 }
 
 export default Notifications

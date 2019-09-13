@@ -1,27 +1,22 @@
 import React, { FunctionComponent } from 'react'
-import { Dimensions, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Dimensions,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View
+} from 'react-native'
 
 import { colors, fonts, layout } from '../../styles'
 
 interface Props {
-  autoCapitalize?: any
-  autoCorrect?: boolean
-  keyboardType?: any
-  multiline?: boolean
-  numberOfLines?: number
-  placeholder?: string
   reference?: any
-  returnKeyType?: any
-  secureTextEntry?: boolean
   style?: any
   styleInput?: any
   value?: string
-
-  onChangeText: (value: string) => void
-  onSubmitEditing?: () => void
 }
 
-const TextBox: FunctionComponent<Props> = ({
+const TextBox: FunctionComponent<Props & TextInputProps> = ({
   autoCapitalize,
   autoCorrect,
   keyboardType,
@@ -58,7 +53,7 @@ const TextBox: FunctionComponent<Props> = ({
         keyboardType={keyboardType}
         multiline={multiline}
         numberOfLines={numberOfLines}
-        onChangeText={value => onChangeText(value)}
+        onChangeText={text => onChangeText && onChangeText(text)}
         onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
         placeholderTextColor={colors.textLight}

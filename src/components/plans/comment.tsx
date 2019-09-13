@@ -37,10 +37,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: layout.margin
   },
-  hero: {
-    height: layout.avatarHeight,
-    width: layout.avatarHeight
-  },
   details: {
     flex: 1,
     marginLeft: layout.margin

@@ -1,4 +1,4 @@
-import Identicon from 'identicon.js'
+// import Identicon from 'identicon.js'
 import React, { FunctionComponent } from 'react'
 import { Image, StyleSheet } from 'react-native'
 
@@ -10,15 +10,15 @@ interface Props {
 }
 
 const Avatar: FunctionComponent<Props> = ({ id, style }) => {
-  const uri = new Identicon(id, {
-    format: 'png',
-    margin: 0,
-    size: 200
-  }).toString()
+  // const uri = new Identicon(id, {
+  //   format: 'png',
+  //   margin: 0,
+  //   size: 200
+  // }).toString()
 
   return (
     <Image
-      style={styles.main}
+      style={[styles.main, style]}
       source={{
         // uri: `data:image/png;base64,${uri}`
         uri: `https://i.pravatar.cc/300?u=${id}`

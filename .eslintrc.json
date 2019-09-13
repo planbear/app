@@ -2,6 +2,7 @@
   "extends": ["@react-native-community", "eslint:recommended", "prettier"],
   "plugins": ["react", "react-native", "prettier", "simple-import-sort"],
   "rules": {
+    "no-shadow": "off",
     "prettier/prettier": "off",
     "react-native/no-color-literals": "error",
     "react-native/no-inline-styles": "error",

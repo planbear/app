@@ -10,7 +10,7 @@
   "scripts": {
     "generate": "graphql-codegen",
     "ios": "react-native run-ios --simulator 'iPhone Xs'",
-    "lint": "eslint .",
+    "lint": "eslint src --ext .ts,.tsx",
     "start": "react-native start"
   },
   "dependencies": {
