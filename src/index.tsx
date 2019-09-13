@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 import { KeyboardView, Spinner, TabBar } from './components/common'
-import { client } from './graphql'
+import { createClient } from './graphql'
 import { nav, session } from './lib'
 import {
   Create,
@@ -18,6 +18,8 @@ import {
   Profile,
   Register
 } from './scenes'
+
+export const client = createClient()
 
 const PlanBear: FunctionComponent = () => {
   const [loading, setLoading] = useState(true)
@@ -78,7 +80,7 @@ const PlanBear: FunctionComponent = () => {
 
   return (
     <KeyboardView style={styles.main}>
-      <ApolloProvider client={client()}>
+      <ApolloProvider client={client}>
         <Container ref={navigator => nav.set(navigator)} />
       </ApolloProvider>
     </KeyboardView>

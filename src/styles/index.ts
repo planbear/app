@@ -13,7 +13,9 @@ export const colors = {
   modal: 'rgba(0, 0, 0, 0.5)',
 
   text: iOSColors.black,
-  textLight: iOSColors.gray
+  textLight: iOSColors.gray,
+
+  ...iOSColors
 }
 
 export const fonts = {

@@ -208,5 +208,4 @@ export type User = {
   push: Scalars['Boolean']
   rating: Scalars['Float']
   created: Scalars['String']
-  updated: Scalars['String']
 }

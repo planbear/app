@@ -4,6 +4,7 @@ import img_expand from './img_expand.png'
 import img_marker from './img_marker.png'
 import img_minus from './img_minus.png'
 import img_plus from './img_plus.png'
+import img_rating from './img_rating.png'
 import img_send from './img_send.png'
 import notification_new_comment from './notification_new_comment.png'
 import notification_new_request from './notification_new_request.png'
@@ -58,6 +59,7 @@ export {
   img_marker,
   img_minus,
   img_plus,
+  img_rating,
   img_send,
   planbear
 }
