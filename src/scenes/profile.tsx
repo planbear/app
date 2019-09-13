@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary
   },
   avatar: {
-    borderRadius: layout.avatarHeight * 1.5,
     height: layout.avatarHeight * 3,
     marginVertical: layout.margin * 2,
     width: layout.avatarHeight * 3
