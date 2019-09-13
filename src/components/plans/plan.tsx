@@ -32,7 +32,7 @@ const Plan: FunctionComponent<Props> = ({
           <View style={styles.item}>
             <Text style={styles.time}>{moment(time).fromNow()}</Text>
           </View>
-          {!!expires && (
+          {expires !== time && (
             <View style={styles.item}>
               <Text style={styles.time}>
                 Expires {moment(expires).fromNow()}
@@ -50,7 +50,7 @@ const Plan: FunctionComponent<Props> = ({
             <Image style={styles.icon} source={planMeta.going} />
             <Text style={styles.label}>
               {going}
-              {max && `/${max}`}
+              {max > 0 && `/${max}`}
             </Text>
           </View>
           <View style={styles.item}>

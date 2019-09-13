@@ -124,16 +124,16 @@ const Plan: NavigationStackScreenComponent<Props> = ({
 
   useEffect(() => {
     const fetch = async () => {
-      setLocation(await geo.location())
+      const location = await geo.location()
 
-      if (location) {
-        getPlan({
-          variables: {
-            location,
-            planId
-          }
-        })
-      }
+      setLocation(location)
+
+      getPlan({
+        variables: {
+          location,
+          planId
+        }
+      })
     }
 
     fetch()

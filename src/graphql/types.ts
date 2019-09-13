@@ -43,7 +43,7 @@ export type Meta = {
   comments: Scalars['Int']
   distance: Scalars['Float']
   going: Scalars['Int']
-  max?: Maybe<Scalars['Int']>
+  max: Scalars['Int']
 }
 
 export type Mutation = {
@@ -142,7 +142,7 @@ export type Plan = {
   id: Scalars['ID']
   comments?: Maybe<Array<Comment>>
   description: Scalars['String']
-  expires?: Maybe<Scalars['String']>
+  expires: Scalars['String']
   members?: Maybe<Array<Member>>
   meta: Meta
   status: PlanStatus

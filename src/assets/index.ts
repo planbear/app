@@ -1,4 +1,9 @@
 import img_back from './img_back.png'
+import img_close from './img_close.png'
+import img_expand from './img_expand.png'
+import img_marker from './img_marker.png'
+import img_minus from './img_minus.png'
+import img_plus from './img_plus.png'
 import img_send from './img_send.png'
 import notification_new_comment from './notification_new_comment.png'
 import notification_new_request from './notification_new_request.png'
@@ -8,7 +13,7 @@ import plan_meta_distance from './plan_meta_distance.png'
 import plan_meta_going from './plan_meta_going.png'
 import plan_type_beach from './plan_type_beach.png'
 import plan_type_concert from './plan_type_concert.png'
-import plan_type_education from './plan_type_education.png'
+import plan_type_educational from './plan_type_educational.png'
 import plan_type_movie from './plan_type_movie.png'
 import plan_type_road_trip from './plan_type_road_trip.png'
 import plan_type_shopping from './plan_type_shopping.png'
@@ -34,7 +39,7 @@ export const planMeta = {
 export const planType: any = {
   beach: plan_type_beach,
   concert: plan_type_concert,
-  education: plan_type_education,
+  educational: plan_type_educational,
   movie: plan_type_movie,
   road_trip: plan_type_road_trip,
   shopping: plan_type_shopping
@@ -46,4 +51,13 @@ export const notificationAction: any = {
   request_approved: notification_request_approved
 }
 
-export { img_back, img_send, planbear }
+export {
+  img_back,
+  img_close,
+  img_expand,
+  img_marker,
+  img_minus,
+  img_plus,
+  img_send,
+  planbear
+}
