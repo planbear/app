@@ -49,8 +49,9 @@ const Login: NavigationStackScreenComponent = () => {
     <SafeAreaView style={styles.main}>
       <TextBox
         autoCapitalize="none"
-        placeholder="Email"
+        keyboardType="email-address"
         onChangeText={email => setEmail(email)}
+        placeholder="Email"
       />
       <TextBox
         style={styles.input}
