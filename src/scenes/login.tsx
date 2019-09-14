@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { SafeAreaView, StyleSheet, TextInput } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { Button, NavBar, TextBox } from '../components/common'
@@ -27,6 +27,8 @@ export const LOGIN = gql`
 `
 
 const Login: NavigationStackScreenComponent = () => {
+  const passwordRef = useRef<TextInput>()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -45,34 +47,43 @@ const Login: NavigationStackScreenComponent = () => {
     }
   )
 
+  const onSubmit = () => {
+    if (email && password) {
+      login({
+        variables: {
+          email,
+          password
+        }
+      })
+    }
+  }
+
   return (
     <SafeAreaView style={styles.main}>
       <TextBox
         autoCapitalize="none"
         keyboardType="email-address"
         onChangeText={email => setEmail(email)}
+        onSubmitEditing={() =>
+          passwordRef.current && passwordRef.current.focus()
+        }
         placeholder="Email"
+        returnKeyType="next"
       />
       <TextBox
+        reference={ref => ref && (passwordRef.current = ref)}
         style={styles.input}
         onChangeText={password => setPassword(password)}
+        onSubmitEditing={onSubmit}
         placeholder="Password"
+        returnKeyType="done"
         secureTextEntry
       />
       <Button
         style={styles.input}
         label="Login"
         loading={loading}
-        onPress={() => {
-          if (email && password) {
-            login({
-              variables: {
-                email,
-                password
-              }
-            })
-          }
-        }}
+        onPress={onSubmit}
       />
     </SafeAreaView>
   )

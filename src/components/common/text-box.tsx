@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, Ref } from 'react'
 import {
   Dimensions,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
 import { colors, fonts, layout } from '../../styles'
 
 interface Props {
-  reference?: any
+  reference?: Ref<TextInput>
   style?: any
   styleInput?: any
   value?: string

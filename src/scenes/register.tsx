@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { SafeAreaView, StyleSheet, TextInput } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { Button, NavBar, TextBox } from '../components/common'
@@ -23,6 +23,9 @@ export const LOGIN = gql`
 `
 
 const Register: NavigationStackScreenComponent = () => {
+  const emailRef = useRef<TextInput>()
+  const passwordRef = useRef<TextInput>()
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -42,37 +45,52 @@ const Register: NavigationStackScreenComponent = () => {
     }
   })
 
+  const onSubmit = () => {
+    if (name && email && password) {
+      register({
+        variables: {
+          name,
+          email,
+          password
+        }
+      })
+    }
+  }
+
   return (
     <SafeAreaView style={styles.main}>
-      <TextBox placeholder="Name" onChangeText={name => setName(name)} />
       <TextBox
+        onChangeText={name => setName(name)}
+        placeholder="Name"
+        onSubmitEditing={() => emailRef.current && emailRef.current.focus()}
+        returnKeyType="next"
+      />
+      <TextBox
+        reference={ref => ref && (emailRef.current = ref)}
         style={styles.input}
         autoCapitalize="none"
         keyboardType="email-address"
         onChangeText={email => setEmail(email)}
+        onSubmitEditing={() =>
+          passwordRef.current && passwordRef.current.focus()
+        }
         placeholder="Email"
+        returnKeyType="next"
       />
       <TextBox
+        reference={ref => ref && (passwordRef.current = ref)}
         style={styles.input}
         onChangeText={password => setPassword(password)}
+        onSubmitEditing={onSubmit}
         placeholder="Password"
+        returnKeyType="done"
         secureTextEntry
       />
       <Button
         style={styles.input}
         label="Register"
         loading={loading}
-        onPress={() => {
-          if (name && email && password) {
-            register({
-              variables: {
-                name,
-                email,
-                password
-              }
-            })
-          }
-        }}
+        onPress={onSubmit}
       />
     </SafeAreaView>
   )
