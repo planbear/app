@@ -37,25 +37,22 @@ const DateTimePicker: FunctionComponent<Props> = ({
   value,
   onChange
 }) => {
-  const [date, setDate] = useState<Moment>()
   const [day, setDay] = useState(moment().get('dayOfYear'))
   const [time, setTime] = useState()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     if (day && time) {
-      const nextDate = moment(date)
+      const nextDate = moment(value)
       const currentTime = moment(time)
 
       nextDate.set('dayOfYear', day)
       nextDate.set('hour', currentTime.get('hour'))
       nextDate.set('minutes', currentTime.get('minutes'))
 
-      setDate(nextDate)
-
       onChange(nextDate)
     }
-  }, [date, day, onChange, time])
+  }, [day, time])
 
   let days = range(20).map(index => moment().add(index, 'days'))
   let times = range(48).map(index =>
