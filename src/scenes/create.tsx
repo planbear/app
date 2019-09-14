@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
   },
   maxLabel: {
     ...fonts.regular,
+    alignSelf: 'center',
     flex: 1,
-    lineHeight: layout.buttonHeight,
     textAlign: 'center'
   },
   input: {
