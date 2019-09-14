@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Image,
   SafeAreaView,
@@ -12,7 +12,7 @@ import {
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { img_rating } from '../assets'
-import { Avatar, Button, Spinner } from '../components/common'
+import { Avatar, Button, NavBar, Spinner } from '../components/common'
 import { User } from '../graphql/types'
 import { nav, session } from '../lib'
 import { colors, fonts, layout, shadow } from '../styles'
@@ -31,8 +31,22 @@ export const GET_PROFILE = gql`
   }
 `
 
-const Profile: NavigationStackScreenComponent = () => {
-  const { data } = useQuery<{ profile: User }>(GET_PROFILE)
+const Profile: NavigationStackScreenComponent = ({
+  navigation: { getParam, setParams }
+}) => {
+  const { data } = useQuery<{ profile: User }>(GET_PROFILE, {
+    onCompleted(data) {
+      if (!getParam('id')) {
+        const {
+          profile: { id }
+        } = data
+
+        setParams({
+          id
+        })
+      }
+    }
+  })
 
   if (!data || !data.profile) {
     return <Spinner />
@@ -44,9 +58,6 @@ const Profile: NavigationStackScreenComponent = () => {
 
   return (
     <>
-      <SafeAreaView style={styles.safe}>
-        <Avatar style={styles.avatar} id={id} />
-      </SafeAreaView>
       <ScrollView contentContainerStyle={styles.main}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.email}>{email}</Text>
@@ -71,9 +82,16 @@ const Profile: NavigationStackScreenComponent = () => {
   )
 }
 
-Profile.navigationOptions = {
-  header: null
-}
+Profile.navigationOptions = ({ navigation: { getParam } }) => ({
+  header: () =>
+    getParam('id') ? (
+      <SafeAreaView style={styles.safe}>
+        <Avatar style={styles.avatar} id={getParam('id')} />
+      </SafeAreaView>
+    ) : (
+      <NavBar title="Profile" />
+    )
+})
 
 const styles = StyleSheet.create({
   safe: {
