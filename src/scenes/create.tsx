@@ -80,9 +80,9 @@ const Create: NavigationStackScreenComponent = ({
     { createPlan: Plan },
     MutationCreatePlanArgs
   >(CREATE_PLAN, {
-    onCompleted(data) {
+    onCompleted({ createPlan: { id } }) {
       navigate('Plan', {
-        planId: data.createPlan.id
+        planId: id
       })
 
       setDescription('')

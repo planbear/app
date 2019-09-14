@@ -35,12 +35,8 @@ const Profile: NavigationStackScreenComponent = ({
   navigation: { getParam, setParams }
 }) => {
   const { data } = useQuery<{ profile: User }>(GET_PROFILE, {
-    onCompleted(data) {
+    onCompleted({ profile: { id } }) {
       if (!getParam('id')) {
-        const {
-          profile: { id }
-        } = data
-
         setParams({
           id
         })
