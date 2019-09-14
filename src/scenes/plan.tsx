@@ -17,6 +17,7 @@ import {
 } from '../graphql/types'
 import { geo } from '../lib'
 import { colors, fonts, layout } from '../styles'
+import { client } from '..'
 
 interface Props {
   planId: string
@@ -69,6 +70,7 @@ export const JOIN_PLAN = gql`
   mutation joinPlan($planId: ID!, $location: LocationInput!) {
     joinPlan(planId: $planId, location: $location) {
       id
+      status
     }
   }
 `
@@ -120,7 +122,37 @@ const Plan: NavigationStackScreenComponent<Props> = ({
       joinPlan: IPlan
     },
     MutationJoinPlanArgs
-  >(JOIN_PLAN)
+  >(JOIN_PLAN, {
+    onCompleted({ joinPlan }) {
+      const data = client.readQuery({
+        query: GET_PLAN,
+        variables: {
+          location,
+          planId
+        }
+      }) as {
+        plan: IPlan
+      }
+
+      if (data) {
+        const { plan } = data
+
+        client.writeQuery({
+          data: {
+            plan: {
+              ...plan,
+              ...joinPlan
+            }
+          },
+          query: GET_PLAN,
+          variables: {
+            location,
+            planId
+          }
+        })
+      }
+    }
+  })
 
   useEffect(() => {
     const fetch = async () => {
