@@ -2,13 +2,20 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { orderBy } from 'lodash'
 import React, { useEffect } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
-import { NavBar, Separator, Spinner, Touchable } from '../components/common'
+import {
+  Button,
+  NavBar,
+  Separator,
+  Spinner,
+  Touchable
+} from '../components/common'
 import { Plan } from '../components/plans'
 import { Plan as IPlan, QueryPlansArgs } from '../graphql/types'
 import { geo } from '../lib'
+import { fonts, layout } from '../styles'
 
 export interface GetPlansData {
   plans: IPlan[]
@@ -68,8 +75,17 @@ const Plans: NavigationStackScreenComponent = ({
 
   return (
     <FlatList
+      contentContainerStyle={styles.content}
       data={orderBy(data.plans, ['expires', 'distance'], ['asc', 'asc'])}
       ItemSeparatorComponent={Separator}
+      ListEmptyComponent={() => (
+        <View style={styles.empty}>
+          <Text style={styles.label}>
+            There are no plans nearby. Why don't you create one?
+          </Text>
+          <Button label="Create a plan" onPress={() => navigate('Create')} />
+        </View>
+      )}
       onRefresh={refetch}
       refreshing={loading}
       renderItem={({ item }) => (
@@ -89,5 +105,22 @@ const Plans: NavigationStackScreenComponent = ({
 Plans.navigationOptions = {
   header: () => <NavBar title="Plans within 20km" />
 }
+
+const styles = StyleSheet.create({
+  content: {
+    flexGrow: 1
+  },
+  empty: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    padding: layout.margin * 2
+  },
+  label: {
+    ...fonts.regular,
+    marginBottom: layout.margin,
+    textAlign: 'center'
+  }
+})
 
 export default Plans
