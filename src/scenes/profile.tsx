@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Image,
   SafeAreaView,
@@ -49,7 +49,7 @@ const Profile: NavigationStackScreenComponent = ({
   }
 
   const {
-    profile: { email, id, name, rating }
+    profile: { email, name, rating }
   } = data
 
   return (
