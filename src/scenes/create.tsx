@@ -15,7 +15,8 @@ import {
   TextBox,
   Touchable
 } from '../components/common'
-import Picker, { LabelValue } from '../components/common/picker'
+import { Picker } from '../components/plans'
+import { LabelValue } from '../components/plans/picker'
 import {
   LocationInput,
   MutationCreatePlanArgs,

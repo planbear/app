@@ -10,11 +10,9 @@ import {
   ViewStyle
 } from 'react-native'
 
-import { img_close, img_expand } from '../../assets'
+import { img_close, img_expand, planType } from '../../assets'
 import { colors, fonts, layout, weights } from '../../styles'
-import Modal from './modal'
-import Separator from './separator'
-import Touchable from './touchable'
+import { Modal, Separator, Touchable } from '../common'
 
 export interface LabelValue {
   label: string
@@ -42,14 +40,22 @@ const Picker: FunctionComponent<Props> = ({
   return (
     <>
       <Touchable style={[styles.main, style]} onPress={() => setVisible(true)}>
+        {selected && (
+          <Image
+            style={[styles.icon, styles.selectedIcon]}
+            source={planType[selected.value]}
+          />
+        )}
         <Text style={[styles.label, selected && styles.selected]}>
           {selected ? selected.label : placeholder}
         </Text>
         <Image style={[styles.icon, styles.expand]} source={img_expand} />
       </Touchable>
-      <Modal onRequestClose={() => setVisible(false)} visible={visible}>
+      <Modal
+        style={styles.modal}
+        onRequestClose={() => setVisible(false)}
+        visible={visible}>
         <FlatList
-          style={styles.list}
           data={data}
           ItemSeparatorComponent={Separator}
           ListHeaderComponent={() => (
@@ -68,6 +74,7 @@ const Picker: FunctionComponent<Props> = ({
                 onChange(item)
                 setVisible(false)
               }}>
+              <Image style={styles.icon} source={planType[item.value]} />
               <Text style={styles.itemLabel}>{item.label}</Text>
             </Touchable>
           )}
@@ -94,6 +101,9 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     flex: 1
   },
+  selectedIcon: {
+    marginRight: layout.padding
+  },
   selected: {
     color: colors.text
   },
@@ -104,13 +114,12 @@ const styles = StyleSheet.create({
   expand: {
     marginLeft: layout.margin
   },
-  list: {
-    backgroundColor: colors.backgroundDark,
-    flexGrow: 0,
-    width: width * 0.75
+  modal: {
+    width: '80%'
   },
   header: {
     alignItems: 'center',
+    backgroundColor: colors.backgroundDark,
     flexDirection: 'row'
   },
   title: {
@@ -123,11 +132,13 @@ const styles = StyleSheet.create({
     padding: layout.margin
   },
   item: {
-    backgroundColor: colors.background,
+    alignItems: 'center',
+    flexDirection: 'row',
     padding: layout.margin
   },
   itemLabel: {
-    ...fonts.regular
+    ...fonts.regular,
+    marginLeft: layout.padding
   }
 })
 

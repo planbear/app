@@ -16,11 +16,6 @@ import { colors, fonts, layout, weights } from '../../styles'
 import Modal from './modal'
 import Touchable from './touchable'
 
-export interface LabelValue {
-  label: string
-  value: string
-}
-
 interface Props {
   max?: Moment
   placeholder?: string
