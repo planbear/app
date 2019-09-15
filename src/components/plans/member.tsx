@@ -125,17 +125,13 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
     <Swipeable
       childrenContainerStyle={styles.main}
       renderLeftActions={() => {
-        if (id === session.userId) {
-          return null
-        }
-
         const over = moment().isAfter(time)
 
         return (
           <View style={actions.main}>
-            {!over && (
+            {!over && user.id === session.userId && (
               <>
-                {!approved && user.id === session.userId && (
+                {!approved && (
                   <Touchable
                     style={[actions.action, actions.approve]}
                     onPress={approve}>
@@ -146,7 +142,7 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
                     <Text style={actions.label}>Approve</Text>
                   </Touchable>
                 )}
-                {user.id === session.userId && (
+                {id !== session.userId && (
                   <Touchable
                     style={[actions.action, actions.block]}
                     onPress={block}>
@@ -156,7 +152,7 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
                 )}
               </>
             )}
-            {over && id === session.userId && (
+            {over && id !== session.userId && (
               <>
                 <Touchable
                   style={[actions.action, actions.rate]}
