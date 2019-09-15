@@ -1,5 +1,6 @@
 import React from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { planbear } from '../assets'
@@ -10,7 +11,12 @@ const Landing: NavigationStackScreenComponent = ({
   navigation: { navigate }
 }) => {
   return (
-    <SafeAreaView style={styles.main}>
+    <SafeAreaView
+      style={styles.main}
+      forceInset={{
+        bottom: 'always',
+        top: 'never'
+      }}>
       <Image style={styles.planbear} source={planbear} />
       <Text style={styles.description}>Make plans and meet new friends</Text>
       <View style={styles.footer}>

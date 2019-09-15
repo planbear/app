@@ -67,7 +67,8 @@ const Login: NavigationStackScreenComponent = () => {
     <SafeAreaView
       style={styles.main}
       forceInset={{
-        bottom: 'always'
+        bottom: 'always',
+        top: 'never'
       }}>
       <TextBox
         autoCapitalize="none"

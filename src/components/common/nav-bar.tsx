@@ -24,6 +24,7 @@ const NavBar: FunctionComponent<Props & NavigationScreenProps> = ({
     <SafeAreaView
       style={styles.safe}
       forceInset={{
+        bottom: 'never',
         top: 'always'
       }}>
       <View style={styles.main}>

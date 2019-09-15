@@ -41,7 +41,8 @@ const TabBar: FunctionComponent<BottomTabBarProps & Props> = ({
     <SafeAreaView
       style={styles.main}
       forceInset={{
-        bottom: 'always'
+        bottom: 'always',
+        top: 'never'
       }}>
       {routes.map((route, current) => {
         const { key } = route

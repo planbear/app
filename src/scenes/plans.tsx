@@ -145,6 +145,7 @@ Plans.navigationOptions = ({ navigation: { getParam, setParams } }) => ({
       <SafeAreaView
         style={header.safe}
         forceInset={{
+          bottom: 'never',
           top: 'always'
         }}>
         <View style={header.main}>

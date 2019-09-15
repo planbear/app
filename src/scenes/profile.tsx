@@ -200,6 +200,7 @@ Profile.navigationOptions = ({ navigation: { getParam } }) => ({
         <SafeAreaView
           style={styles.safe}
           forceInset={{
+            bottom: 'never',
             top: 'always'
           }}>
           <Avatar style={styles.avatar} id={id} />

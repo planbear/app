@@ -70,7 +70,8 @@ const Register: NavigationStackScreenComponent = () => {
     <SafeAreaView
       style={styles.main}
       forceInset={{
-        bottom: 'always'
+        bottom: 'always',
+        top: 'never'
       }}>
       <TextBox
         onChangeText={name => setName(name)}
