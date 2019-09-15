@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/react-hooks'
+import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import React, { useRef, useState } from 'react'
 import { SafeAreaView, StyleSheet, TextInput } from 'react-native'
@@ -36,14 +37,19 @@ const Register: NavigationStackScreenComponent = () => {
     },
     MutationRegisterArgs
   >(LOGIN, {
-    async update(proxy, { data }) {
-      if (data) {
-        const { register } = data
+    async onCompleted({ register }) {
+      await session.put(register)
 
-        await session.put(register)
+      nav.reset('App')
 
-        nav.reset('App')
-      }
+      const {
+        user: { id, email }
+      } = register
+
+      Sentry.setUser({
+        email,
+        id
+      })
     }
   })
 

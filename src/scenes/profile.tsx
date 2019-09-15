@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/react-hooks'
+import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import { difference } from 'lodash'
 import React, { useState } from 'react'
@@ -175,6 +176,8 @@ const Profile: NavigationStackScreenComponent = ({
           await session.clear()
 
           nav.reset('Landing')
+
+          Sentry.setUser(null)
         }}
       />
     </>

@@ -66,3 +66,7 @@ buck-out/
 #
 .env
 .env.production
+
+# Sentry
+#
+sentry.properties

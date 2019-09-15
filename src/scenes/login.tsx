@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/react-hooks'
+import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import React, { useRef, useState } from 'react'
 import { SafeAreaView, StyleSheet, TextInput } from 'react-native'
@@ -30,17 +31,25 @@ const Login: NavigationStackScreenComponent = () => {
 
   const [login, { loading }] = useMutation<
     {
-      async update(proxy, { data }) {
-        if (data) {
-          const { login } = data
+      login: AuthResult
+    },
+    MutationLoginArgs
+  >(LOGIN, {
+    async onCompleted({ login }) {
+      await session.put(login)
 
-          await session.put(login)
+      nav.reset('App')
 
-          nav.reset('App')
-        }
-      }
+      const {
+        user: { id, email }
+      } = login
+
+      Sentry.setUser({
+        email,
+        id
+      })
     }
-  )
+  })
 
   const onSubmit = () => {
     if (email && password) {
