@@ -137,7 +137,7 @@ const Create: NavigationStackScreenComponent = ({
             style={styles.maxButton}
             onPress={() => {
               if (max > 0) {
-                setMax(max - 1)
+                setMax(max - (max === 2 ? 2 : 1))
               }
             }}>
             <Image style={styles.maxIcon} source={img_minus} />
@@ -150,7 +150,7 @@ const Create: NavigationStackScreenComponent = ({
           <Touchable
             style={styles.maxButton}
             onPress={() => {
-              setMax(max + 1)
+              setMax(max + (max === 0 ? 2 : 1))
             }}>
             <Image style={styles.maxIcon} source={img_plus} />
           </Touchable>
