@@ -4,8 +4,12 @@ import img_expand from './img_expand.png'
 import img_marker from './img_marker.png'
 import img_minus from './img_minus.png'
 import img_plus from './img_plus.png'
+import img_rating_gray from './img_rating_gray.png'
 import img_rating from './img_rating.png'
 import img_send from './img_send.png'
+import member_action_approve from './member_action_approve.png'
+import member_action_block from './member_action_block.png'
+import member_action_rate from './member_action_rate.png'
 import notification_new_comment from './notification_new_comment.png'
 import notification_new_request from './notification_new_request.png'
 import notification_request_approved from './notification_request_approved.png'
@@ -46,6 +50,12 @@ export const planType: any = {
   shopping: plan_type_shopping
 }
 
+export const memberActions = {
+  approve: member_action_approve,
+  block: member_action_block,
+  rate: member_action_rate
+}
+
 export const notificationAction: any = {
   new_comment: notification_new_comment,
   new_request: notification_new_request,
@@ -60,6 +70,7 @@ export {
   img_minus,
   img_plus,
   img_rating,
+  img_rating_gray,
   img_send,
   planbear
 }

@@ -23,7 +23,7 @@ const Members: FunctionComponent<Props> = ({ plan, refreshing, refetch }) => {
       keyExtractor={({ id }) => id}
       onRefresh={refetch}
       refreshing={refreshing}
-      renderItem={({ item }) => <Member member={item} />}
+      renderItem={({ item }) => <Member member={item} plan={plan} />}
     />
   )
 }

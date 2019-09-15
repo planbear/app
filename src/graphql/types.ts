@@ -48,7 +48,7 @@ export type Meta = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  approveMember?: Maybe<Result>
+  approveMember?: Maybe<Member>
   blockMember?: Maybe<Result>
   createComment?: Maybe<Comment>
   createPlan?: Maybe<Plan>
@@ -57,7 +57,6 @@ export type Mutation = {
   rateUser?: Maybe<Result>
   register?: Maybe<AuthResult>
   removeComment?: Maybe<Result>
-  removeMember?: Maybe<Result>
   updateProfile?: Maybe<User>
 }
 
@@ -105,11 +104,6 @@ export type MutationRegisterArgs = {
 export type MutationRemoveCommentArgs = {
   planId: Scalars['ID']
   commentId: Scalars['ID']
-}
-
-export type MutationRemoveMemberArgs = {
-  planId: Scalars['ID']
-  userId: Scalars['ID']
 }
 
 export type MutationUpdateProfileArgs = {
