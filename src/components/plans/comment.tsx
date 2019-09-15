@@ -78,18 +78,20 @@ const Comment: FunctionComponent<Props> = ({
     <Swipeable
       childrenContainerStyle={styles.main}
       renderLeftActions={() => {
-        if (user.id !== session.userId) {
-          return null
+        if (userId === session.userId || user.id === session.userId) {
+          return (
+            <View style={actions.main}>
+              <Touchable
+                style={[actions.action, actions.block]}
+                onPress={remove}>
+                <Image style={actions.icon} source={memberActions.block} />
+                <Text style={actions.label}>Remove</Text>
+              </Touchable>
+            </View>
+          )
         }
 
-        return (
-          <View style={actions.main}>
-            <Touchable style={[actions.action, actions.block]} onPress={remove}>
-              <Image style={actions.icon} source={memberActions.block} />
-              <Text style={actions.label}>Remove</Text>
-            </Touchable>
-          </View>
-        )
+        return null
       }}>
       <Avatar id={userId} />
       <View style={styles.details}>
