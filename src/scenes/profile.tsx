@@ -7,7 +7,6 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Switch,
   Text,
@@ -112,7 +111,6 @@ const Profile: NavigationStackScreenComponent = ({
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
       <ScrollView
         contentContainerStyle={styles.main}
         refreshControl={

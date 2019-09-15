@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Image,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { planbear } from '../assets'
@@ -18,7 +11,6 @@ const Landing: NavigationStackScreenComponent = ({
 }) => {
   return (
     <SafeAreaView style={styles.main}>
-      <StatusBar barStyle="dark-content" />
       <Image style={styles.planbear} source={planbear} />
       <Text style={styles.description}>Make plans and meet new friends</Text>
       <View style={styles.footer}>

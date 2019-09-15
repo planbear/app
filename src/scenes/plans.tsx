@@ -2,14 +2,7 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { orderBy } from 'lodash'
 import React from 'react'
-import {
-  FlatList,
-  Image,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
@@ -17,7 +10,6 @@ import { img_arrow_down, img_close } from '../assets'
 import {
   Button,
   Modal,
-  NavBar,
   Separator,
   Spinner,
   Touchable
@@ -79,7 +71,6 @@ const Plans: NavigationStackScreenComponent<Props> = ({
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
       <FlatList
         contentContainerStyle={styles.content}
         data={orderBy(data.plans, ['expires', 'distance'], ['asc', 'asc'])}

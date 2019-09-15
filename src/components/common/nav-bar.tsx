@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import {
   NavigationScreenProps,
   SafeAreaView,
@@ -26,7 +26,6 @@ const NavBar: FunctionComponent<Props & NavigationScreenProps> = ({
       forceInset={{
         top: 'always'
       }}>
-      <StatusBar barStyle="light-content" />
       <View style={styles.main}>
         {back && (
           <Touchable
