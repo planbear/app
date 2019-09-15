@@ -8,7 +8,7 @@ import {
   ViewStyle
 } from 'react-native'
 
-import { colors, layout } from '../../styles'
+import { colors, layout, shadow } from '../../styles'
 
 interface Props {
   style?: StyleProp<ViewStyle>
@@ -35,6 +35,7 @@ const ModalView: FunctionComponent<Props & ModalProps> = ({
 
 const styles = StyleSheet.create({
   modal: {
+    ...shadow,
     alignItems: 'center',
     backgroundColor: colors.modal,
     flex: 1,
