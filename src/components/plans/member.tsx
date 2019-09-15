@@ -10,7 +10,6 @@ import {
   Member as IMember,
   MutationApproveMemberArgs,
   MutationBlockMemberArgs,
-  MutationRateUserArgs,
   Plan
 } from '../../graphql/types'
 import { session } from '../../lib'
@@ -136,7 +135,7 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
           <View style={actions.main}>
             {!over && (
               <>
-                {!approved && (
+                {!approved && user.id === session.userId && (
                   <Touchable
                     style={[actions.action, actions.approve]}
                     onPress={approve}>
@@ -147,12 +146,14 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
                     <Text style={actions.label}>Approve</Text>
                   </Touchable>
                 )}
-                <Touchable
-                  style={[actions.action, actions.block]}
-                  onPress={block}>
-                  <Image style={actions.icon} source={memberActions.block} />
-                  <Text style={actions.label}>Remove</Text>
-                </Touchable>
+                {user.id === session.userId && (
+                  <Touchable
+                    style={[actions.action, actions.block]}
+                    onPress={block}>
+                    <Image style={actions.icon} source={memberActions.block} />
+                    <Text style={actions.label}>Remove</Text>
+                  </Touchable>
+                )}
               </>
             )}
             {over && user.id === session.userId && (
