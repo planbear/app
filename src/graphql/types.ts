@@ -196,6 +196,7 @@ export type User = {
   id: Scalars['ID']
   email: Scalars['String']
   name: Scalars['String']
+  plans: Array<Plan>
   push: Scalars['Boolean']
   rating: Scalars['Float']
   created: Scalars['String']

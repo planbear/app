@@ -1,3 +1,4 @@
+import img_arrow_right from './img_arrow_right.png'
 import img_back from './img_back.png'
 import img_close from './img_close.png'
 import img_expand from './img_expand.png'
@@ -63,6 +64,7 @@ export const notificationAction: any = {
 }
 
 export {
+  img_arrow_right,
   img_back,
   img_close,
   img_expand,

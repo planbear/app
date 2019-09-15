@@ -16,7 +16,8 @@ import {
   Plan,
   Plans,
   Profile,
-  Register
+  Register,
+  UserPlans
 } from './scenes'
 
 export const client = createClient()
@@ -57,7 +58,8 @@ const PlanBear: FunctionComponent = () => {
         Notifications
       }),
       Profile: createStackNavigator({
-        Profile
+        Profile,
+        UserPlans
       })
     },
     {
