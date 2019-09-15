@@ -156,7 +156,7 @@ const Member: FunctionComponent<Props> = ({ member, plan }) => {
                 )}
               </>
             )}
-            {over && user.id === session.userId && (
+            {over && id === session.userId && (
               <>
                 <Touchable
                   style={[actions.action, actions.rate]}
