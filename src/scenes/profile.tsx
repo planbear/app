@@ -68,8 +68,8 @@ const Profile: NavigationStackScreenComponent = ({
         ghost
         label="Logout"
         onPress={async () => {
-          await client.cache.reset()
           await client.resetStore()
+          await client.cache.reset()
           await session.clear()
 
           nav.reset('Landing')
