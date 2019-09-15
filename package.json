@@ -23,7 +23,7 @@
     "apollo-link-context": "^1.0.19",
     "apollo-link-error": "^1.1.12",
     "apollo-link-http": "^1.5.16",
-    "graphql": "^14.5.4",
+    "graphql": "^14.5.6",
     "graphql-tag": "^2.10.1",
     "identicon.js": "^2.3.3",
     "lodash": "^4.17.15",
@@ -37,9 +37,9 @@
     "react-native-reanimated": "^1.2.0",
     "react-native-tab-view": "^2.10.0",
     "react-native-typography": "^1.4.1",
-    "react-navigation": "^4.0.4",
+    "react-navigation": "^4.0.5",
     "react-navigation-stack": "^1.7.3",
-    "react-navigation-tabs": "^2.5.1"
+    "react-navigation-tabs": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -52,9 +52,9 @@
     "@types/lodash": "^4.14.138",
     "@types/pluralize": "^0.0.29",
     "@types/react": "^16.9.2",
-    "@types/react-native": "^0.60.13",
+    "@types/react-native": "^0.60.14",
     "@types/react-native-dotenv": "^0.2.0",
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
