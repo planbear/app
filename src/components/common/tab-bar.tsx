@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { Image, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
+import { Image, Keyboard, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-navigation'
 import { BottomTabBarProps } from 'react-navigation-tabs'
 
 import { nav } from '../../assets'
@@ -37,7 +38,11 @@ const TabBar: FunctionComponent<BottomTabBarProps & Props> = ({
   }
 
   return (
-    <SafeAreaView style={styles.main}>
+    <SafeAreaView
+      style={styles.main}
+      forceInset={{
+        bottom: 'always'
+      }}>
       {routes.map((route, current) => {
         const { key } = route
         const active = index === current

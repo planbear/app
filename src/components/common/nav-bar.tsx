@@ -1,13 +1,10 @@
 import React, { FunctionComponent } from 'react'
+import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
 import {
-  Image,
+  NavigationScreenProps,
   SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
-import { NavigationScreenProps, withNavigation } from 'react-navigation'
+  withNavigation
+} from 'react-navigation'
 
 import { img_back } from '../../assets'
 import { colors, fonts, layout, shadow } from '../../styles'
@@ -24,7 +21,11 @@ const NavBar: FunctionComponent<Props & NavigationScreenProps> = ({
   navigation: { goBack }
 }) => {
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView
+      style={styles.safe}
+      forceInset={{
+        top: 'always'
+      }}>
       <StatusBar barStyle="light-content" />
       <View style={styles.main}>
         {back && (

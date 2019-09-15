@@ -3,15 +3,8 @@ import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import { difference } from 'lodash'
 import React, { useState } from 'react'
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  View
-} from 'react-native'
+import { Image, ScrollView, StyleSheet, Switch, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { img_arrow_right, img_rating } from '../assets'
@@ -192,7 +185,11 @@ Profile.navigationOptions = ({ navigation: { getParam } }) => ({
       const { email, id, name, rating } = user
 
       return (
-        <SafeAreaView style={styles.safe}>
+        <SafeAreaView
+          style={styles.safe}
+          forceInset={{
+            top: 'always'
+          }}>
           <Avatar style={styles.avatar} id={id} />
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>

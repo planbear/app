@@ -2,7 +2,8 @@ import { useMutation } from '@apollo/react-hooks'
 import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import React, { useRef, useState } from 'react'
-import { SafeAreaView, StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native'
+import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
 import { Button, NavBar, TextBox } from '../components/common'
@@ -63,7 +64,11 @@ const Login: NavigationStackScreenComponent = () => {
   }
 
   return (
-    <SafeAreaView style={styles.main}>
+    <SafeAreaView
+      style={styles.main}
+      forceInset={{
+        bottom: 'always'
+      }}>
       <TextBox
         autoCapitalize="none"
         keyboardType="email-address"

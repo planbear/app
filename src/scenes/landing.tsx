@@ -35,7 +35,7 @@ const Landing: NavigationStackScreenComponent = ({
 }
 
 Landing.navigationOptions = {
-  header: null
+  header: () => null
 }
 
 const styles = StyleSheet.create({
