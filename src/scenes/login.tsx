@@ -9,10 +9,6 @@ import { AuthResult, MutationLoginArgs } from '../graphql/types'
 import { nav, session } from '../lib'
 import { layout } from '../styles'
 
-export interface LoginData {
-  login: AuthResult
-}
-
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -32,8 +28,7 @@ const Login: NavigationStackScreenComponent = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const [login, { loading }] = useMutation<LoginData, MutationLoginArgs>(
-    LOGIN,
+  const [login, { loading }] = useMutation<
     {
       async update(proxy, { data }) {
         if (data) {

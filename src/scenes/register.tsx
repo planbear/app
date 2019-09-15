@@ -31,7 +31,9 @@ const Register: NavigationStackScreenComponent = () => {
   const [password, setPassword] = useState('')
 
   const [register, { loading }] = useMutation<
-    { register: AuthResult },
+    {
+      register: AuthResult
+    },
     MutationRegisterArgs
   >(LOGIN, {
     async update(proxy, { data }) {

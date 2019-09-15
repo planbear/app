@@ -10,10 +10,6 @@ import { Notification } from '../components/notifications'
 import { Notification as INotification } from '../graphql/types'
 import { fonts, layout } from '../styles'
 
-export interface GetNotificationsData {
-  notifications: INotification[]
-}
-
 export const GET_NOTIFICATIONS = gql`
   query notifications {
     notifications {
@@ -48,9 +44,9 @@ export const GET_NOTIFICATIONS = gql`
 const Notifications: NavigationStackScreenComponent = ({
   navigation: { navigate }
 }) => {
-  const { data, loading, refetch } = useQuery<GetNotificationsData>(
-    GET_NOTIFICATIONS
-  )
+  const { data, loading, refetch } = useQuery<{
+    notifications: INotification[]
+  }>(GET_NOTIFICATIONS)
 
   if (!data || !data.notifications) {
     return <Spinner />

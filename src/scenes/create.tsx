@@ -77,7 +77,9 @@ const Create: NavigationStackScreenComponent = ({
   const [type, setType] = useState<LabelValue>()
 
   const [createPlan, { loading }] = useMutation<
-    { createPlan: Plan },
+    {
+      createPlan: Plan
+    },
     MutationCreatePlanArgs
   >(CREATE_PLAN, {
     onCompleted({ createPlan: { id } }) {

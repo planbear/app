@@ -7,14 +7,11 @@ import { img_send } from '../../assets'
 import { Comment, MutationCreateCommentArgs, Plan } from '../../graphql/types'
 import { GET_PLAN } from '../../scenes/plan'
 import { colors, layout } from '../../styles'
+import { client } from '../..'
 import { TextBox, Touchable } from '../common'
 
 interface Props {
   plan: Plan
-}
-
-export interface CreateCommentData {
-  createComment: Comment
 }
 
 const CREATE_COMMENT = gql`
@@ -36,27 +33,28 @@ const Reply: FunctionComponent<Props> = ({ plan }) => {
   const [body, setBody] = useState('')
 
   const [createComment, { loading }] = useMutation<
-    CreateCommentData,
+    {
+      createComment: Comment
+    },
     MutationCreateCommentArgs
   >(CREATE_COMMENT, {
-    update(proxy, { data }) {
-      if (data) {
-        const { createComment } = data
-
-        proxy.writeQuery({
-          query: GET_PLAN,
-          data: {
-            plan: {
-              ...plan,
-              comments: [...(plan.comments || []), createComment]
-            }
-          }
-        })
-      }
-    },
     variables: {
       body,
       planId: plan.id
+    },
+    onCompleted({ createComment }) {
+      client.writeQuery({
+        query: GET_PLAN,
+        data: {
+          plan: {
+            ...plan,
+            comments: [...(plan.comments || []), createComment]
+          }
+        },
+        variables: {
+          planId: plan.id
+        }
+      })
     }
   })
 

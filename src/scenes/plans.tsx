@@ -16,10 +16,6 @@ import { Plan } from '../components/plans'
 import { Plan as IPlan, QueryPlansArgs } from '../graphql/types'
 import { fonts, layout } from '../styles'
 
-export interface GetPlansData {
-  plans: IPlan[]
-}
-
 export const GET_PLANS = gql`
   query plans($radius: Int!) {
     plans(radius: $radius) {
@@ -48,14 +44,16 @@ export const GET_PLANS = gql`
 const Plans: NavigationStackScreenComponent = ({
   navigation: { navigate }
 }) => {
-  const { data, loading, refetch } = useQuery<GetPlansData, QueryPlansArgs>(
-    GET_PLANS,
+  const { data, loading, refetch } = useQuery<
     {
-      variables: {
-        radius: 20
-      }
+      plans: IPlan[]
+    },
+    QueryPlansArgs
+  >(GET_PLANS, {
+    variables: {
+      radius: 20
     }
-  )
+  })
 
   if (!data || !data.plans) {
     return <Spinner />
