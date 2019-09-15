@@ -38,7 +38,7 @@ const Notification: FunctionComponent<Props> = ({
       source.__typename === 'User' &&
       target.__typename === 'Plan'
     ) {
-      return `Your request to join ${source}'s ${target.type} plan has been approved.`
+      return `Your request to join ${source.name}'s ${target.type} plan has been approved.`
     }
   }
 
