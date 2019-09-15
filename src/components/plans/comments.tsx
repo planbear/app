@@ -28,7 +28,7 @@ const Comments: FunctionComponent<Props> = ({ plan, refreshing, refetch }) => {
         ListEmptyComponent={<Empty message="No comments yet" flipped />}
         onRefresh={refetch}
         refreshing={refreshing}
-        renderItem={({ item }) => <Comment comment={item} />}
+        renderItem={({ item }) => <Comment comment={item} plan={plan} />}
       />
       <Reply plan={plan} />
     </>

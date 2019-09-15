@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const actions = StyleSheet.create({
+export const actions = StyleSheet.create({
   main: {
     flexDirection: 'row'
   },
