@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     width: width * 0.75
   },
   header: {
+    alignItems: 'center',
     flexDirection: 'row'
   },
   title: {

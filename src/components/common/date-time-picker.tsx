@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     width: '80%'
   },
   header: {
+    alignItems: 'center',
     backgroundColor: colors.backgroundDark,
     flexDirection: 'row'
   },
