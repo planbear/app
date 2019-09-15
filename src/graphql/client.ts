@@ -11,7 +11,7 @@ import { get } from 'lodash'
 import { Alert } from 'react-native'
 import { API_URI } from 'react-native-dotenv'
 
-import { nav, session } from '../lib'
+import { geo, nav, session } from '../lib'
 import schema from './schema.json'
 
 export default () => {
@@ -20,16 +20,6 @@ export default () => {
       introspectionQueryResultData: schema
     })
   })
-
-  const headers = () => {
-    const headers: any = {}
-
-    if (session.token) {
-      headers.authorization = `Bearer ${session.token}`
-    }
-
-    return headers
-  }
 
   const link = ApolloLink.from([
     onError(({ graphQLErrors }) => {
@@ -48,7 +38,7 @@ export default () => {
         )
       }
     }),
-    setContext((request, { headers }) => {
+    setContext(async (request, { headers }) => {
       if (!headers) {
         headers = {}
       }
@@ -57,13 +47,16 @@ export default () => {
         headers.authorization = `Bearer ${session.token}`
       }
 
+      const { latitude, longitude } = await geo.location()
+
+      headers.location = `${latitude},${longitude}`
+
       return {
         headers
       }
     }),
     new HttpLink({
-      uri: API_URI,
-      headers: headers()
+      uri: API_URI
     })
   ])
 

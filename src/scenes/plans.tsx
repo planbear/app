@@ -1,7 +1,7 @@
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { orderBy } from 'lodash'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
@@ -14,7 +14,6 @@ import {
 } from '../components/common'
 import { Plan } from '../components/plans'
 import { Plan as IPlan, QueryPlansArgs } from '../graphql/types'
-import { geo } from '../lib'
 import { fonts, layout } from '../styles'
 
 export interface GetPlansData {
@@ -22,8 +21,8 @@ export interface GetPlansData {
 }
 
 export const GET_PLANS = gql`
-  query plans($location: LocationInput!, $radius: Int!) {
-    plans(location: $location, radius: $radius) {
+  query plans($radius: Int!) {
+    plans(radius: $radius) {
       id
       description
       expires
@@ -49,25 +48,14 @@ export const GET_PLANS = gql`
 const Plans: NavigationStackScreenComponent = ({
   navigation: { navigate }
 }) => {
-  const [getPlans, { data, loading, refetch }] = useLazyQuery<
-    GetPlansData,
-    QueryPlansArgs
-  >(GET_PLANS)
-
-  useEffect(() => {
-    const fetch = async () => {
-      const location = await geo.location()
-
-      getPlans({
-        variables: {
-          location,
-          radius: 20
-        }
-      })
+  const { data, loading, refetch } = useQuery<GetPlansData, QueryPlansArgs>(
+    GET_PLANS,
+    {
+      variables: {
+        radius: 20
+      }
     }
-
-    fetch()
-  }, [getPlans])
+  )
 
   if (!data || !data.plans) {
     return <Spinner />

@@ -1,7 +1,7 @@
-import { useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { get } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
@@ -10,12 +10,10 @@ import { Button, NavBar, Spinner } from '../components/common'
 import { Comments, Members, TabBar, Plan as VPlan } from '../components/plans'
 import {
   Plan as IPlan,
-  LocationInput,
   MutationJoinPlanArgs,
   PlanStatus,
   QueryPlanArgs
 } from '../graphql/types'
-import { geo } from '../lib'
 import { colors, fonts, layout } from '../styles'
 import { client } from '..'
 
@@ -25,8 +23,8 @@ interface Props {
 }
 
 export const GET_PLAN = gql`
-  query plan($planId: ID!, $location: LocationInput!) {
-    plan(planId: $planId, location: $location) {
+  query plan($planId: ID!) {
+    plan(planId: $planId) {
       id
       comments {
         id
@@ -67,8 +65,8 @@ export const GET_PLAN = gql`
 `
 
 export const JOIN_PLAN = gql`
-  mutation joinPlan($planId: ID!, $location: LocationInput!) {
-    joinPlan(planId: $planId, location: $location) {
+  mutation joinPlan($planId: ID!) {
+    joinPlan(planId: $planId) {
       id
       status
     }
@@ -93,14 +91,16 @@ const Plan: NavigationStackScreenComponent<Props> = ({
   const planId = getParam('planId')
 
   const [state, setState] = useState(initialState)
-  const [location, setLocation] = useState<LocationInput>()
 
-  const [getPlan, { data, loading, refetch }] = useLazyQuery<
+  const { data, loading, refetch } = useQuery<
     {
       plan: IPlan
     },
     QueryPlanArgs
   >(GET_PLAN, {
+    variables: {
+      planId
+    },
     onCompleted(data) {
       if (!getParam('title')) {
         const {
@@ -127,7 +127,6 @@ const Plan: NavigationStackScreenComponent<Props> = ({
       const data = client.readQuery({
         query: GET_PLAN,
         variables: {
-          location,
           planId
         }
       }) as {
@@ -146,30 +145,12 @@ const Plan: NavigationStackScreenComponent<Props> = ({
           },
           query: GET_PLAN,
           variables: {
-            location,
             planId
           }
         })
       }
     }
   })
-
-  useEffect(() => {
-    const fetch = async () => {
-      const location = await geo.location()
-
-      setLocation(location)
-
-      getPlan({
-        variables: {
-          location,
-          planId
-        }
-      })
-    }
-
-    fetch()
-  }, [getPlan, planId])
 
   if (!data || !data.plan) {
     return <Spinner />
@@ -198,14 +179,11 @@ const Plan: NavigationStackScreenComponent<Props> = ({
             label="Request to join"
             loading={loadingJoinPlan}
             onPress={() => {
-              if (location) {
-                joinPlan({
-                  variables: {
-                    location,
-                    planId
-                  }
-                })
-              }
+              joinPlan({
+                variables: {
+                  planId
+                }
+              })
             }}
           />
         </View>

@@ -83,7 +83,6 @@ export type MutationCreatePlanArgs = {
 
 export type MutationJoinPlanArgs = {
   planId: Scalars['ID']
-  location: LocationInput
 }
 
 export type MutationLoginArgs = {
@@ -187,11 +186,9 @@ export type Query = {
 
 export type QueryPlanArgs = {
   planId: Scalars['ID']
-  location: LocationInput
 }
 
 export type QueryPlansArgs = {
-  location: LocationInput
   radius: Scalars['Int']
 }
 
