@@ -101,7 +101,7 @@ const Profile: NavigationStackScreenComponent = ({
   }
 
   const {
-    profile: { push, plans }
+    profile: { plans }
   } = data
 
   const userPlans = plans.filter(plan => plan.user.id === session.userId)
