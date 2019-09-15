@@ -3,7 +3,16 @@ import * as Sentry from '@sentry/react-native'
 import gql from 'graphql-tag'
 import { difference } from 'lodash'
 import React, { useState } from 'react'
-import { Image, ScrollView, StyleSheet, Switch, Text, View } from 'react-native'
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  View
+} from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
@@ -67,7 +76,7 @@ const Profile: NavigationStackScreenComponent = ({
 }) => {
   const [notifications, setNotifications] = useState<boolean>(true)
 
-  const { data } = useQuery<{
+  const { data, loading, refetch } = useQuery<{
     profile: User
   }>(GET_PROFILE, {
     onCompleted({ profile }) {
@@ -103,7 +112,12 @@ const Profile: NavigationStackScreenComponent = ({
 
   return (
     <>
-      <ScrollView contentContainerStyle={styles.main}>
+      <StatusBar barStyle="light-content" />
+      <ScrollView
+        contentContainerStyle={styles.main}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refetch} />
+        }>
         <View style={styles.row}>
           <Text style={styles.label}>Push notifications</Text>
           <Switch
