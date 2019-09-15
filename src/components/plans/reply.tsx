@@ -48,7 +48,11 @@ const Reply: FunctionComponent<Props> = ({ plan }) => {
         data: {
           plan: {
             ...plan,
-            comments: [...(plan.comments || []), createComment]
+            comments: [...(plan.comments || []), createComment],
+            meta: {
+              ...plan.meta,
+              comments: plan.meta.comments + 1
+            }
           }
         },
         variables: {

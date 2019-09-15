@@ -63,7 +63,11 @@ const Comment: FunctionComponent<Props> = ({
         data: {
           plan: {
             ...plan,
-            comments: [...comments]
+            comments: [...comments],
+            meta: {
+              ...plan.meta,
+              comments: plan.meta.comments - 1
+            }
           }
         },
         query: GET_PLAN,
