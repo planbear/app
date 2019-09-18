@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from 'react'
 import {
-  Dimensions,
   FlatList,
   Image,
   StyleProp,
@@ -10,7 +9,7 @@ import {
   ViewStyle
 } from 'react-native'
 
-import { img_close, img_expand, planType } from '../../assets'
+import { img_check, img_close, img_expand, planType } from '../../assets'
 import { colors, fonts, layout, weights } from '../../styles'
 import { Modal, Separator, Touchable } from '../common'
 
@@ -76,6 +75,9 @@ const Picker: FunctionComponent<Props> = ({
               }}>
               <Image style={styles.icon} source={planType[item.value]} />
               <Text style={styles.itemLabel}>{item.label}</Text>
+              {selected && selected.value === item.value && (
+                <Image style={styles.icon} source={img_check} />
+              )}
             </Touchable>
           )}
         />
@@ -83,8 +85,6 @@ const Picker: FunctionComponent<Props> = ({
     </>
   )
 }
-
-const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   main: {
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     ...fonts.regular,
-    marginLeft: layout.padding
+    flex: 1,
+    marginHorizontal: layout.padding
   }
 })
 
