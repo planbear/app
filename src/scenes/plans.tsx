@@ -6,7 +6,7 @@ import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
-import { img_arrow_down, img_close } from '../assets'
+import { img_arrow_down, img_check, img_close } from '../assets'
 import {
   Button,
   Modal,
@@ -105,7 +105,7 @@ const Plans: NavigationStackScreenComponent<Props> = ({
         }
         visible={visible}>
         <View style={modal.header}>
-          <Text style={modal.title}>How far should we look for plans?</Text>
+          <Text style={modal.title}>Search radius</Text>
           <Touchable
             style={modal.close}
             onPress={() =>
@@ -122,13 +122,17 @@ const Plans: NavigationStackScreenComponent<Props> = ({
           keyExtractor={item => String(item)}
           renderItem={({ item }) => (
             <Touchable
+              style={modal.item}
               onPress={() =>
                 setParams({
                   radius: item,
                   visible: false
                 })
               }>
-              <Text style={modal.label}>{item}km</Text>
+              <Text style={modal.label}>{item} km</Text>
+              {radius === item && (
+                <Image style={modal.icon} source={img_check} />
+              )}
             </Touchable>
           )}
         />
@@ -148,18 +152,17 @@ Plans.navigationOptions = ({ navigation: { getParam, setParams } }) => ({
           bottom: 'never',
           top: 'always'
         }}>
-        <View style={header.main}>
-          <Text style={header.title}>Plans within {radius}km</Text>
-          <Touchable
-            style={header.touchable}
-            onPress={() =>
-              setParams({
-                visible: true
-              })
-            }>
+        <Touchable
+          onPress={() =>
+            setParams({
+              visible: true
+            })
+          }>
+          <View style={header.main}>
+            <Text style={header.title}>Plans within {radius} km</Text>
             <Image style={header.icon} source={img_arrow_down} />
-          </Touchable>
-        </View>
+          </View>
+        </Touchable>
       </SafeAreaView>
     )
   }
@@ -198,11 +201,9 @@ const header = StyleSheet.create({
     ...fonts.regular,
     color: colors.background
   },
-  touchable: {
-    marginLeft: layout.padding
-  },
   icon: {
     height: layout.iconHeight,
+    marginLeft: layout.padding,
     width: layout.iconHeight
   }
 })
@@ -229,9 +230,14 @@ const modal = StyleSheet.create({
     height: layout.iconHeight,
     width: layout.iconHeight
   },
+  item: {
+    flexDirection: 'row',
+    padding: layout.margin
+  },
   label: {
     ...fonts.regular,
-    padding: layout.margin
+    flex: 1,
+    marginRight: layout.margin
   }
 })
 

@@ -1,6 +1,7 @@
 import img_arrow_down from './img_arrow_down.png'
 import img_arrow_right from './img_arrow_right.png'
 import img_back from './img_back.png'
+import img_check from './img_check.png'
 import img_close from './img_close.png'
 import img_expand from './img_expand.png'
 import img_marker from './img_marker.png'
@@ -68,6 +69,7 @@ export {
   img_arrow_down,
   img_arrow_right,
   img_back,
+  img_check,
   img_close,
   img_expand,
   img_marker,
