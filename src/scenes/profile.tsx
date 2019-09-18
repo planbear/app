@@ -12,6 +12,7 @@ import {
   Text,
   View
 } from 'react-native'
+import ImagePicker from 'react-native-image-picker'
 import { SafeAreaView } from 'react-navigation'
 import { NavigationStackScreenComponent } from 'react-navigation-stack'
 
@@ -28,6 +29,11 @@ import { MutationUpdateProfileArgs, User } from '../graphql/types'
 import { nav, session } from '../lib'
 import { colors, fonts, layout, shadow } from '../styles'
 import { client } from '..'
+
+interface Props {
+  photo?: string
+  profile: User
+}
 
 export const GET_PROFILE = gql`
   query profile {
@@ -70,7 +76,7 @@ export const UPDATE_PROFILE = gql`
   }
 `
 
-const Profile: NavigationStackScreenComponent = ({
+const Profile: NavigationStackScreenComponent<Props> = ({
   navigation: { getParam, navigate, setParams }
 }) => {
   const [notifications, setNotifications] = useState<boolean>(true)
@@ -189,9 +195,10 @@ const Profile: NavigationStackScreenComponent = ({
   )
 }
 
-Profile.navigationOptions = ({ navigation: { getParam } }) => ({
+Profile.navigationOptions = ({ navigation: { getParam, setParams } }) => ({
   header: () => {
-    const user: User = getParam('profile')
+    const photo = getParam('photo')
+    const user = getParam('profile')
 
     if (user) {
       const { email, id, name, rating } = user
@@ -203,7 +210,32 @@ Profile.navigationOptions = ({ navigation: { getParam } }) => ({
             bottom: 'never',
             top: 'always'
           }}>
-          <Avatar style={styles.avatar} id={id} />
+          <Touchable
+            onPress={() => {
+              ImagePicker.showImagePicker(
+                {
+                  noData: true,
+                  title: 'Select profile photo'
+                },
+                ({ uri }) => {
+                  if (uri) {
+                    setParams({
+                      photo: uri
+                    })
+                  }
+                }
+              )
+            }}>
+            {!!photo && (
+              <Image
+                style={styles.avatar}
+                source={{
+                  uri: photo
+                }}
+              />
+            )}
+            {!photo && <Avatar style={styles.avatar} id={id} />}
+          </Touchable>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
           <View style={styles.rating}>
@@ -225,6 +257,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary
   },
   avatar: {
+    borderRadius: layout.radius,
     height: layout.avatarHeight * 3,
     marginTop: layout.margin * 2,
     width: layout.avatarHeight * 3
