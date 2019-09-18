@@ -6,7 +6,7 @@ import { ActivityIndicator, Image, StyleSheet, View } from 'react-native'
 import { img_send } from '../../assets'
 import { Comment, MutationCreateCommentArgs, Plan } from '../../graphql/types'
 import { GET_PLAN } from '../../scenes/plan'
-import { colors, layout } from '../../styles'
+import { colors, fonts, layout } from '../../styles'
 import { client } from '../..'
 import { TextBox, Touchable } from '../common'
 
@@ -66,6 +66,7 @@ const Reply: FunctionComponent<Props> = ({ plan }) => {
     <View style={styles.main}>
       <TextBox
         style={styles.textBox}
+        styleInput={styles.textBoxInput}
         onChangeText={body => setBody(body)}
         placeholder="Say something nice"
         value={body}
@@ -86,6 +87,7 @@ const Reply: FunctionComponent<Props> = ({ plan }) => {
 
 const styles = StyleSheet.create({
   main: {
+    backgroundColor: colors.background,
     borderTopColor: colors.border,
     borderTopWidth: layout.border,
     flexDirection: 'row'
@@ -94,7 +96,9 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     flex: 1
   },
-
+  textBoxInput: {
+    ...fonts.small
+  },
   button: {
     alignItems: 'center',
     height: layout.textBoxHeight,
