@@ -54,17 +54,15 @@ const Picker: FunctionComponent<Props> = ({
         style={styles.modal}
         onRequestClose={() => setVisible(false)}
         visible={visible}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{placeholder}</Text>
+          <Touchable style={styles.close} onPress={() => setVisible(false)}>
+            <Image style={styles.icon} source={img_close} />
+          </Touchable>
+        </View>
         <FlatList
           data={data}
           ItemSeparatorComponent={Separator}
-          ListHeaderComponent={() => (
-            <View style={styles.header}>
-              <Text style={styles.title}>{placeholder}</Text>
-              <Touchable style={styles.close} onPress={() => setVisible(false)}>
-                <Image style={styles.icon} source={img_close} />
-              </Touchable>
-            </View>
-          )}
           keyExtractor={({ value }) => value}
           renderItem={({ item }) => (
             <Touchable
